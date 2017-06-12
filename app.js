@@ -13,7 +13,16 @@ mongoose.connect(mongodbURL, (err, res) => {
         return console.log("Baza danych nie odpowiada! : " + err)
 
     console.log(" Połączono pomyślnie")
-})
+});
+
+//let modal = require('./modals/user')
+let client = require('./routing/client');
+
+
+
+
+
+
 //files
 //let schema = require('./Schema/User.js');
 //Systems
@@ -66,7 +75,7 @@ errorFormatter: function(param, msg, value) {
   //app.use('/' ,webSites);
   //app.use('/users' ,users);
 
-app.use('/', (req, res)=>{ res.send("Hello world");});
+app.use('/', client);
 
 
 app.listen(8080, function() {
