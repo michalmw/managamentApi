@@ -8,6 +8,7 @@ let userSchema = new Schema({
   lastName: String,
   userName:   String,
   email: String,
+  login: String,
   password: String
 });
 
@@ -21,37 +22,41 @@ router.get('/', (req, res)=>{
 
 
 router.get('/app/users', (req, res)=>{
-  /*let user = {
-    firstName: "kasia",
-    lastName: "Walczyk",
-    userName: "prypke",
-    email: "@som",
-    password: "asiaz"
-  }*/
-  let new2 = new User();
 
-  new2.firstName = "kasia",
-  new2.lastName = "Walczyk",
-  new2.userName = "prypke",
-  new2.email = "@som",
-  new2.password = "to"
-  new2.save( (err, result)=>{
-    if(err){console.log(err)}
-    console.log(result);
-    res.send(result);
-  })
-/*  User.save(user, (err, result)=>{
-    if(err){console.log(err)}
-    console.log(result);
-  })
+  User.find({})
+    .exec((err, date)=>{
+      if(err){
+        res.send('error')
+      }
+      else {
+        console.log(date);
+        res.json(date);
+      }
+    })
 
-  User.find((err, res)=>{
+  /*User.find({},(err, res)=>{
     if(err){console.log(err)}
     console.log(res);
     res.send(res);
   })*/
+  //res.send(200);
 });
 
+router.post('/api/users', (req, res)=>{
+  let login = req.body.login;
+  let password = req.body.password;
+
+  let user = new User();
+
+  user.login = login;
+  user.password = password;
+
+  user.save( (err, result)=>{
+    if(err){console.log(err); res.send(409)}
+    console.log(result);
+    res.send(result);
+  });
+});
 
 
 router.get('/app/users:id', (req, res)=>{
