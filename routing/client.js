@@ -60,12 +60,50 @@ router.post('/api/users', (req, res)=>{
 
 
 router.get('/app/users:id', (req, res)=>{
-  console.log(req.params.id);
-  res.send(req.params.id);
+  let id = req.params.id;
+  User.find({"_id" : id})
+    .exec((err, date)=>{
+      if(err){
+        res.send('Nie znaleziono o takim ID');
+      }
+      else {
+        console.log(date);
+        res.json(date);
+      }
+    })
 });
 
 router.get('/app/som', (req, res)=>{
   res.send(200);
 });
+
+
+
+
+
+
+
+
+
+
+router.delete('api/users:id', (req, res)=>{
+      console.log(req.params.id);
+      /*  User.remove({
+            _id: req.params.id
+        }, (err, bear) =>{
+            if (err)
+                res.send(err);
+
+            res.json({ message: 'Successfully deleted' });
+        }); */
+});
+
+
+
+
+
+
+
+
 
 module.exports = router;
