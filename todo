@@ -1,0 +1,53 @@
+1. Rejstrujac - musisz szyfrowac haslo - tak aby nie bylo one zapisywane normlanie do bazy danych - w wrazie wlamania, aby nie bylo problemu
+2. Musisz zrobic routing dla logowania. - typu post - podaje ci login i haslo (ale nie zaszyfrowane) - ty je musisz szyfrowac i sprawdzac czy jest takie samo jak jest w bazie i zwrocic ze jest ok, lub ze bledny login lub haslo
+3. Zrobic routing dla aktualizacji danych z uzytkownika
+
+[10:31] 
+nie spieszy sei, wiec spokojnie mozesz jutro
+
+szabloreki [10:31 PM] 
+(ale pisz co mam zrobić bo dobrze się jest przespać z problemem jakb co)
+
+[10:31] 
+ok
+
+[10:31] 
+czek szyfrowanie znaczy:
+
+[10:32] 
+1. uzytkownik wysyła hasło a ty zapasujesz je jakao ,zaszyfrowane
+
+[10:32] 
+2.podczas wysyłania hasło jest szyfrowane i spr się czy jest taki sam jak te zaszyfrowane w mongo?
+
+[10:33] 
+a napisałeś XD
+
+michal
+[10:33 PM] 
+1. http://hosting.suprice.today:8014/api/users
+
+[10:33] 
+patrz jakie tutaj sa hasla
+
+szabloreki [10:33 PM] 
+aktualizując, użytkownika ma być całość
+
+michal
+[10:33 PM] 
+to sa zaszyfrowane
+
+szabloreki [10:33 PM] 
+na nowo?
+
+[10:33] 
+czy el 1 jakiś zastąpiany?
+
+[10:34] 
+bo o ile wiem w mongo update równa się całość
+
+[10:34] 
+do wymiany
+
+[10:35] 
+skorzystać z express-hash?
