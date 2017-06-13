@@ -15,14 +15,11 @@ let userSchema = new Schema({
 let User = mongoose.model('User', userSchema);
 module.exports = User;
 
-
 router.get('/', (req, res)=>{
   res.send('Welcome');
 })
 
-
 router.get('/app/users', (req, res)=>{
-
   User.find({})
     .exec((err, date)=>{
       if(err){
@@ -78,7 +75,7 @@ router.get('/app/som', (req, res)=>{
 });
 
 
-router.get('/app/todelete:id', (req, res)=>{
+router.delete('/app/users/:id', (req, res)=>{
   let id = req.params.id;
   User.remove({"_id" : id})
     .exec((err, date)=>{
@@ -96,21 +93,16 @@ router.get('/app/todelete:id', (req, res)=>{
 
 
 
-
-
-
-
-router.delete('api/users:id', (req, res)=>{
-      console.log(req.params.id);
-      /*  User.remove({
-            _id: req.params.id
-        }, (err, bear) =>{
-            if (err)
-                res.send(err);
-
-            res.json({ message: 'Successfully deleted' });
-        }); */
+  router.delete('api/users/:id', (req, res)=>{
+  console.log(req.params.id);
+  res.json({'info': 'is ok'});
 });
+
+
+
+
+
+
 
 
 
