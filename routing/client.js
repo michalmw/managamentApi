@@ -78,6 +78,20 @@ router.get('/app/som', (req, res)=>{
 });
 
 
+router.get('/app/todelete:id', (req, res)=>{
+  let id = req.params.id;
+  User.remove({"_id" : id})
+    .exec((err, date)=>{
+      if(err){
+        res.send('Nie znaleziono o takim ID');
+      }
+      else {
+        res.send('Pomyslnie usunieto!');
+      }
+    })
+});
+
+
 
 
 
