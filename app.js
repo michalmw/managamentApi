@@ -28,7 +28,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
-let client = require('./routing/client');
+let client = require('./routing/clients/client');
 app.use('/', client);
 
 app.listen(8080, function() {
