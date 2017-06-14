@@ -4,16 +4,16 @@ const crypto = require('crypto'),
             algorithm = 'aes-256-ctr',
             password = 'd6F3Efeq';
 
-function encrypt(text){
-  var cipher = crypto.createCipher(algorithm,password)
-  var crypted = cipher.update(text,'utf8','hex')
+const encrypt = (text) =>{
+  let cipher = crypto.createCipher(algorithm,password)
+  let crypted = cipher.update(text,'utf8','hex')
   crypted += cipher.final('hex');
   return crypted;
 }
 
-function decrypt(text){
-  var decipher = crypto.createDecipher(algorithm,password)
-  var dec = decipher.update(text,'hex','utf8')
+const decrypt = (text) =>{
+  let decipher = crypto.createDecipher(algorithm,password)
+  let dec = decipher.update(text,'hex','utf8')
   dec += decipher.final('utf8');
   return dec;
 }
@@ -22,11 +22,6 @@ function decrypt(text){
 exports.welcome = (req, res)=>{
   res.send('Welcome');
 }
-
-exports.checkHash = (req, res) =>{
-}
-
-
 
 exports.findAll = (req, res)=>{
   User.find({})
@@ -42,10 +37,10 @@ exports.findAll = (req, res)=>{
 };
 
 exports.addClient = (req, res)=>{
-  let data = req.body.data;
+  let password = req.body.password;
   let login = req.body.login;
 
-  let encrypted = encrypt(data);
+  let encrypted = encrypt(password);
   console.log(encrypted);
 
   let user =  new User();
@@ -89,6 +84,28 @@ exports.deleteById = (req, res)=>{
       }
       else {
         res.send('Pomyslnie usunieto!');
+      }
+    })
+};
+
+exports.login = (req, res)=>{
+  let password = req.body.password;
+  let login = req.body.login;
+
+  let encrypted = encrypt(password);
+  console.log(encrypted);
+
+
+  User.findOne({"password" : encrypted, "login" :login})
+    .exec((err, date)=>{
+      if(err){
+        res.send('Nie znaleziono o takim ID');
+      }
+      if(date === null){
+        return res.send(404);
+      }
+      else {
+        res.json(date);
       }
     })
 };
