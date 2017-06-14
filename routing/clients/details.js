@@ -1,31 +1,29 @@
 const path = require('path');
 const User = require('../../models/user');
-const bcrypt = require('bcrypt');
+const crypto = require('crypto'),
+            algorithm = 'aes-256-ctr',
+            password = 'd6F3Efeq';
+
+function encrypt(text){
+  var cipher = crypto.createCipher(algorithm,password)
+  var crypted = cipher.update(text,'utf8','hex')
+  crypted += cipher.final('hex');
+  return crypted;
+}
+
+function decrypt(text){
+  var decipher = crypto.createDecipher(algorithm,password)
+  var dec = decipher.update(text,'hex','utf8')
+  dec += decipher.final('utf8');
+  return dec;
+}
 
 
 exports.welcome = (req, res)=>{
   res.send('Welcome');
 }
 
-
-
 exports.checkHash = (req, res) =>{
-  let data = req.body.data;
-
-  bcrypt.genSalt(11, (err, hash)=>{
-            if(err){
-                res.send(err);
-                return "haven't hashed";
-          }
-          let user = new User();
-          user.password = hash;
-          user.save( (err, result)=>{
-            console.log(result);
-            res.send(result);
-          });
-          return  hash;
-      });
-
 }
 
 
@@ -44,19 +42,27 @@ exports.findAll = (req, res)=>{
 };
 
 exports.addClient = (req, res)=>{
+  let data = req.body.data;
   let login = req.body.login;
-  let password = req.body.password;
 
-  let user = new User();
+  let encrypted = encrypt(data);
+  console.log(encrypted);
 
+  let user =  new User();
+  user.password = encrypted;
   user.login = login;
-  user.password = password;
 
-  user.save( (err, result)=>{
-    if(err){console.log(err); res.send(409)}
-    console.log(result);
-    res.send(result);
+  user.save((err, result)=>{
+      if(err){
+      console.log(err);
+      res.send(409);
+    }
+    else {
+      console.log(result);
+      res.send('Dodano!')
+    }
   });
+
 };
 
 

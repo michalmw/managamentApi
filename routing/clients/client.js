@@ -1,5 +1,6 @@
 const path = require('path');
 const express = require('express');
+const crypto = require('crypto');
 const router = express.Router();
 const clients = require('./details.js');
 
