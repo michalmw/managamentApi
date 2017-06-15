@@ -109,3 +109,41 @@ exports.login = (req, res)=>{
       }
     })
 };
+
+exports.update = (req, res)=>{
+  res.send(200);
+  let pass = false;
+  let log = false;
+
+  let encrPass = null;
+  let login = null;
+
+  if(req.param('password')){
+    encrPass = encrypt(req.body.password);
+    pass = true;
+  }
+  else {
+    console.log('Password hasnt beed added');
+  }
+
+  if(req.param('login')){
+    login = req.body.login;
+    log = true;
+  }
+  else{
+    console.log("Loggin hasnt been added")
+  }
+
+  User.findOne({ "_id": req.params.id}, function (err, doc){
+    if(pass){
+      console.log(encrPass);
+      doc.password = encrPass;
+    }
+    if(log){
+      console.log(login);
+      doc.login = login;
+    }
+    console.log(doc);
+    doc.save();
+});
+}
