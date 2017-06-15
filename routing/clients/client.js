@@ -10,6 +10,9 @@ router
   .post('/app/users', clients.addClient)
   .get('/app/users/:id', clients.findById)
   .delete('/app/users/:id', clients.deleteById)
-  .post('/app/login', clients.login);
+  .post('/app/login', clients.login)
+  .put('/app/users/:id', clients.update)
+
+
 
 module.exports = router;
