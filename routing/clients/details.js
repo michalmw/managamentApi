@@ -1,23 +1,6 @@
 const path = require('path');
 const User = require('../../models/user');
-const crypto = require('crypto'),
-            algorithm = 'aes-256-ctr',
-            password = 'd6F3Efeq';
-
-const encrypt = (text) =>{
-  let cipher = crypto.createCipher(algorithm,password)
-  let crypted = cipher.update(text,'utf8','hex')
-  crypted += cipher.final('hex');
-  return crypted;
-}
-
-const decrypt = (text) =>{
-  let decipher = crypto.createDecipher(algorithm,password)
-  let dec = decipher.update(text,'hex','utf8')
-  dec += decipher.final('utf8');
-  return dec;
-}
-
+const encr = require('./encryption');
 
 exports.welcome = (req, res)=>{
   res.send('Welcome');
@@ -37,15 +20,13 @@ exports.findAll = (req, res)=>{
 };
 
 exports.addClient = (req, res)=>{
-  let password = req.body.password;
-  let login = req.body.login;
 
-  let encrypted = encrypt(password);
+  let encrypted = encr.encrypt(req.body.password);
   console.log(encrypted);
 
   let user =  new User();
   user.password = encrypted;
-  user.login = login;
+  user.login = req.body.login;
 
   user.save((err, result)=>{
       if(err){
@@ -62,8 +43,8 @@ exports.addClient = (req, res)=>{
 
 
 exports.findById = (req, res)=>{
-  let id = req.params.id;
-  User.find({"_id" : id})
+
+  User.find({"_id" : req.params.id})
     .exec((err, date)=>{
       if(err){
         res.send('Nie znaleziono o takim ID');
@@ -76,8 +57,7 @@ exports.findById = (req, res)=>{
 };
 
 exports.deleteById = (req, res)=>{
-  let id = req.params.id;
-  User.remove({"_id" : id})
+  User.remove({"_id" : req.params.id})
     .exec((err, date)=>{
       if(err){
         res.send('Nie znaleziono o takim ID');
@@ -89,14 +69,10 @@ exports.deleteById = (req, res)=>{
 };
 
 exports.login = (req, res)=>{
-  let password = req.body.password;
-  let login = req.body.login;
-
-  let encrypted = encrypt(password);
+  let encrypted = encr.encrypt(req.body.password);
   console.log(encrypted);
 
-
-  User.findOne({"password" : encrypted, "login" :login})
+  User.findOne({"password" : encrypted, "login" : req.body.login})
     .exec((err, date)=>{
       if(err){
         res.send('Nie znaleziono o takim ID');
@@ -119,7 +95,7 @@ exports.update = (req, res)=>{
   let login = null;
 
   if(req.param('password')){
-    encrPass = encrypt(req.body.password);
+    encrPass = encr.encrypt(req.body.password);
     pass = true;
   }
   else {
