@@ -3,18 +3,22 @@ const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
 const mongodbURL = 'mongodb://localhost/Users'
 const jwt = require('express-jwt')
-const validator = require('express-validator')
 const bcrypt = require('bcrypt');
+const util = require('util')
 const app = express()
+
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-mongoose.connect(mongodbURL, (err, res) => {
-    if (err)
-        return console.log("Baza danych nie odpowiada! : " + err)
 
-    console.log(" Połączono pomyślnie")
+
+
+mongoose.connect(mongodbURL, (err, res) => {
+  if (err)
+  return console.log("Baza danych nie odpowiada! : " + err)
+
+  console.log(" Połączono pomyślnie")
 })
 
 app.use((req, res, next) => {
@@ -29,10 +33,13 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Credentials', true);
   next();
 });
+
 let client = require('./routing/clients/client');
 app.use('/', client);
 
+
+
 app.listen(8080, function() {
-    console.log('Server Started on Port 8080...')
+  console.log('Server Started on Port 8080...')
   // body...
 });

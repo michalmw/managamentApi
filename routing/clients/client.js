@@ -5,7 +5,6 @@ const router = express.Router();
 const clients = require('./details.js');
 
 router
-  .get('/', clients.welcome)
   .get('/app/users', clients.findAll)
   .post('/app/users', clients.addClient)
   .get('/app/users/:id', clients.findById)
