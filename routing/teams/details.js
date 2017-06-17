@@ -13,7 +13,6 @@ exports.createTeam = (req, res) =>{
     return res.status(404).json("You must use name of team beetween 5 and 10 char!")
   }
   req.body.users.forEach(function(user){
-
         console.log('id' + user.userID);
         Teams.find({"_id" : user.userID}, (err, date)=>{
               if(err){
@@ -35,7 +34,6 @@ exports.createTeam = (req, res) =>{
               if(error){
                 res.status(404).json('Któreś ID jest nie poprawne!')
               }
-
               else {
                 let team = new Teams();
                 team.name = req.body.name;
@@ -54,6 +52,15 @@ exports.createTeam = (req, res) =>{
     });
 };
 exports.findAllTeams = (req, res) =>{
-
-
+  let query = Teams.find({});
+  
+  query.select('users');
+  query.exec(function (err, docs) {
+        if(err){
+          return res.status(500).json(err)
+        }
+        else {
+          res.status(200).json(docs)
+        }
+  });
 }

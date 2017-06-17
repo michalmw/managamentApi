@@ -5,6 +5,6 @@ const router = express.Router();
 const teams = require('./details.js');
 
 router
-  .get('/app/check', teams.check)
+  .get('/app/teams', teams.findAllTeams)
   .post('/app/teams', teams.createTeam)
 module.exports = router;

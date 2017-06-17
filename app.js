@@ -11,9 +11,6 @@ const app = express()
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 
-
-
-
 mongoose.connect(mongodbURL, (err, res) => {
   if (err)
   return console.log("Baza danych nie odpowiada! : " + err)
