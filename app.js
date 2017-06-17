@@ -34,9 +34,11 @@ app.use((req, res, next) => {
   next();
 });
 
-let client = require('./routing/clients/client');
+let client = require('./routing/clients/route');
 app.use('/', client);
 
+let teams = require('./routing/teams/route')
+app.use('/', teams);
 
 
 app.listen(8080, function() {
