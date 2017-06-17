@@ -7,4 +7,5 @@ const teams = require('./details.js');
 router
   .get('/app/teams', teams.findAllTeams)
   .post('/app/teams', teams.createTeam)
+  .put('/app/teams/:id', teams.addUserToTeam)
 module.exports = router;

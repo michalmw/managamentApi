@@ -53,7 +53,7 @@ exports.createTeam = (req, res) =>{
 };
 exports.findAllTeams = (req, res) =>{
   let query = Teams.find({});
-  
+
   query.select('users');
   query.exec(function (err, docs) {
         if(err){
@@ -63,4 +63,41 @@ exports.findAllTeams = (req, res) =>{
           res.status(200).json(docs)
         }
   });
+}
+
+exports.deleteTeam = (req, res)=>{
+  Teams.findByIdAndRemove({"_id" : req.params.id})
+    .exec((err, date)=>{
+      if(err){
+        return res.status(404).json("This is not a ID of any object!");
+      }
+      if(date == null){
+        res.status(404).json("This is not a ID of any object!")
+      }
+      else {
+        return res.status(200).json(date);
+      }
+    })
+}
+
+exports.update = (req, res)=>{
+    Teams.findOneAndUpdate({"_id" : req.params.id}, data, {upsert:true}, function(err, doc){
+      if (err) return res.send(500, { error: err });
+      return res.status(200).json("Succesfully saved!")
+  });
+}
+
+exports.addUserToTeam = (req, res)=>{
+  let data = {
+    personID : req.body.personID,
+    name : req.body.name
+  }
+  Teams.findById({"_id" : req.params.id}, (err, result)=>{
+    if(err){return res.status(404).json(err)}
+    else{
+      result.users.push(data)
+      result.save();
+      return res.status(200).json(data)
+    }
+  })
 }
