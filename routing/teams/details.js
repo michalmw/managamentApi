@@ -1,51 +1,38 @@
 const Teams = require('../../models/teams');
 const validator = require('validator');
 
+const  saveDate =  (req, res)=>{
+  let team = new Teams();
+  team.name = req.name;
+  team.users = req.users;
+  team.save((err, date)=>{
+        if(err){
+          res.status(500).json(err);
+        }
+          console.log(date)
+          res.status(200).json(date);
+  })
+}
 
 exports.createTeam = (req, res) =>{
-
-  let error = false;
   let name = validator.isLength(req.body.name, {min:5, max: 10})
   let check = 0;
   if(!name){
     return res.status(404).json("You must use name of team beetween 5 and 10 char!")
   }
-  req.body.users.forEach(function(user){
+
+  req.body.users.forEach((user)=>{
         console.log('id' + user.userID);
-        Teams.find({"_id" : user.userID}, (err, date)=>{
+        Teams.findById(user.userID, (err, date)=>{
               if(err){
-                error = true;
+                return res.status(404).json('At least one of user Id is incorrect')
               }
-              else {
                 console.log('Znalazlo!');
                 check++;
                 if(check == req.body.users.length){
                   console.log('Dodam!')
+                  saveDate(req.body, res);
                 }
-                else {
-                  {
-                    return;
-
-                  }
-                }
-              }
-              if(error){
-                res.status(404).json('Któreś ID jest nie poprawne!')
-              }
-              else {
-                let team = new Teams();
-                team.name = req.body.name;
-                team.users = req.body.users;
-                team.save((err, date)=>{
-                      if(err){
-                        res.status(500).json(err);
-                      }
-                      else {
-                        console.log(date)
-                        res.status(200).json(date);
-                      }
-                })
-              }
         })
     });
 };
