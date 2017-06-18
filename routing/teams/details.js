@@ -1,7 +1,6 @@
 const Teams = require('../../models/teams');
 const validator = require('validator');
 
-exports.check = (req, res) =>{ res.status(200).json('Ok')}
 
 exports.createTeam = (req, res) =>{
 
@@ -80,8 +79,14 @@ exports.deleteTeam = (req, res)=>{
 }
 
 
-exports.deleteUserFromTeam = (req, res)=>{
+exports.update = (req, res)=>{
+  Teams.findByIdAndUpdate(req.params.id, { $set: req.body}, { new: true }, function (err, date) {
+  if (err) return handleError(err);
+  res.status(200).json(date)
+});
+}
 
+exports.deleteUserFromTeam = (req, res)=>{
   Teams.findById(req.params.id, (err, date)=>{
         if(err){
           console.log(err)
