@@ -61,17 +61,11 @@ exports.findAllTeams = (req, res) =>{
 }
 
 exports.deleteTeam = (req, res)=>{
-
-  Teams.findById(req.params.id, function (err, tank) {
+  Teams.findByIdAndRemove(req.params.id, function (err, date) {
     if (err) return handleError(err);
-
-    tank.size = 'large';
-    tank.save();
-    res.status(200).json(tank);
+    res.status(200).json('Removed!');
   });
-
 }
-
 
 exports.update = (req, res)=>{
   Teams.findByIdAndUpdate(req.params.id, { $set: req.body}, { new: true }, function (err, date) {
@@ -81,20 +75,10 @@ exports.update = (req, res)=>{
 }
 
 exports.deleteUserFromTeam = (req, res)=>{
-  Teams.findById(req.params.id, (err, date)=>{
-        if(err){
-          console.log(err)
-          return res.status(404).json('Id was bad');
-        }
-          for(let i=0; i<date.users.length; i++){
-              if(date.users[i].userID == req.body.userID){
-                  date.users.splice(i, 1);
-                  date.save();
-                  return res.status(200).json("Removed!")
-              }
-          }
-          return res.status(404).json('cannot find')
-  })
+  Teams.findByIdAndUpdate(req.params.id,{$pull: {"users": req.body}}, function (err, date) {
+  if (err) return handleError(err);
+  res.status(200).json(date)
+});
 }
 
 exports.addUserToTeam = (req, res)=>{
