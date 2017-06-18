@@ -9,14 +9,11 @@ exports.findAll = (req, res)=>{
       if(err){
         return res.status(500).json(err);
       }
-      else {
         console.log(date);
         return res.status(200).json(date)
-      }
+
     })
 };
-
-
 
 exports.addClient = (req, res)=>{
   let login = validator.isLength(req.body.login, {min:5, max: 10})
@@ -42,10 +39,8 @@ exports.addClient = (req, res)=>{
       console.log(err);
       return res.status(500).json(err);
     }
-    else {
       console.log(result);
       return res.status(200).json(result);
-    }
   });
 };
 
@@ -56,10 +51,8 @@ exports.findById = (req, res)=>{
       if(err){
         return res.status(404).json("Nie znaleziono o takim ID");
       }
-      else {
         console.log(date);
         return res.status(200).json(date);
-      }
     })
 };
 
@@ -71,11 +64,9 @@ exports.deleteById = (req, res)=>{
         return res.status(404).json("This is not a ID of any object!");
       }
       if(date == null){
-        res.status(404).json("This is not a ID of any object!")
+        return res.status(404).json("This is not a ID of any object!")
       }
-      else {
         return res.status(200).json(date);
-      }
     })
 };
 
@@ -88,12 +79,10 @@ exports.login = (req, res)=>{
       if(err){
         return res.status(400).json(err);
       }
-      if(date === null){
+      if(date == null){
         return res.status(400).json("Bad login or password!");
       }
-      else {
         return res.status(200).json(date);
-      }
     })
 };
 
@@ -108,14 +97,15 @@ exports.update = (req, res)=>{
 
   let encrypted = encr.encrypt(req.body.password);
 
-
   let data = {
     login : req.body.login,
     password : encrypted
   }
 
   User.findOneAndUpdate({"_id" : req.params.id}, data, {upsert:true}, function(err, doc){
-    if (err) return res.send(500, { error: err });
+    if (err){
+      return res.status(404).json('Cannot find user with this Id');
+    }
     return res.status(200).json("Succesfully saved!")
 });
 
