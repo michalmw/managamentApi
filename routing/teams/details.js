@@ -51,31 +51,25 @@ exports.createTeam = (req, res) =>{
 };
 exports.findAllTeams = (req, res) =>{
   let query = Teams.find({});
-
   query.select('users');
   query.exec(function (err, docs) {
         if(err){
           return res.status(500).json(err)
         }
-        else {
-          res.status(200).json(docs)
-        }
+        return  res.status(200).json(docs)
   });
 }
 
 exports.deleteTeam = (req, res)=>{
-  Teams.findByIdAndRemove({"_id" : req.params.id})
-    .exec((err, date)=>{
-      if(err){
-        return res.status(404).json("This is not a ID of any object!");
-      }
-      if(date == null){
-        res.status(404).json("This is not a ID of any object!")
-      }
-      else {
-        return res.status(200).json(date);
-      }
-    })
+
+  Teams.findById(req.params.id, function (err, tank) {
+    if (err) return handleError(err);
+
+    tank.size = 'large';
+    tank.save();
+    res.status(200).json(tank);
+  });
+
 }
 
 
@@ -92,12 +86,6 @@ exports.deleteUserFromTeam = (req, res)=>{
           console.log(err)
           return res.status(404).json('Id was bad');
         }
-        else {
-          //let arr = [{userID : "23123", name : "kasia"}, {userID : "3123", name :"Basia"}, {userID : "9898", name :"Olek"}]
-          //let query = {userID : "231233", name : "kasia"}
-          //let wynik  = arr.map(function(e) { return e.hello; }).indexOf(query);
-          //console.log(wynik);
-          //console.log(date.users);
           for(let i=0; i<date.users.length; i++){
               if(date.users[i].userID == req.body.userID){
                   date.users.splice(i, 1);
@@ -106,21 +94,12 @@ exports.deleteUserFromTeam = (req, res)=>{
               }
           }
           return res.status(404).json('cannot find')
-        }
   })
 }
 
 exports.addUserToTeam = (req, res)=>{
-  let data = {
-    userID : req.body.userID,
-    spec : req.body.spec
-  }
-  Teams.findById({"_id" : req.params.id}, (err, result)=>{
-    if(err){return res.status(404).json(err)}
-    else{
-      result.users.push(data)
-      result.save();
-      return res.status(200).json(data)
-    }
-  })
+  Teams.findByIdAndUpdate(req.params.id,{$push: {"users": req.body}}, { new: true }, function (err, date) {
+  if (err) return handleError(err);
+  res.status(200).json(date)
+});
 }
