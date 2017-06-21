@@ -57,7 +57,6 @@ exports.findById = (req, res)=>{
 };
 
 exports.deleteById = (req, res)=>{
-
   User.findByIdAndRemove({"_id" : req.params.id})
     .exec((err, date)=>{
       if(err){

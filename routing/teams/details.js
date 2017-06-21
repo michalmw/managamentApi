@@ -37,14 +37,21 @@ exports.createTeam = (req, res) =>{
     });
 };
 exports.findAllTeams = (req, res) =>{
-  let query = Teams.find({});
-  query.select('users');
-  query.exec(function (err, docs) {
-        if(err){
-          return res.status(500).json(err)
-        }
-        return  res.status(200).json(docs)
-  });
+  var usersProjection = {
+    users: false,
+    title : false,
+    teamID : false,
+    comments : false,
+    owner : false,
+    createdData: false
+};
+
+Teams.find({}, usersProjection, function (err, users) {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    return res.status(200).json(users)
+});
 }
 
 exports.deleteTeam = (req, res)=>{
