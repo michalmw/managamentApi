@@ -37,7 +37,7 @@ exports.createTeam = (req, res) =>{
     });
 };
 exports.findAllTeams = (req, res) =>{
-  var usersProjection = {
+  let usersProjection = {
     users: false,
     title : false,
     teamID : false,
