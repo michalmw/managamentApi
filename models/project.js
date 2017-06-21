@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     title : String,
     price : Number,
-    createdData: String,
+    createdData: Date,
     owner : String,
     teamID : String,
     comments : []

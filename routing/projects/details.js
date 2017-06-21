@@ -69,7 +69,7 @@ exports.addComment = (req, res)=>{
 
 exports.getAllProject = (req, res)=>{
 
-  var usersProjection = {
+  let usersProjection = {
     users: false,
     name : false,
     login: false,
@@ -83,4 +83,23 @@ Projects.find({}, usersProjection, function (err, project) {
     return res.status(200).json(project)
 });
 
+}
+exports.getProject = (req, res)=>{
+  console.log('a')
+  Projects.findById(req.params.id, (err,date)=>{
+    if(err){
+      return res.status(404).json('Bad ID!');
+    }
+    return res.status(200).json(date);
+  })
+}
+
+exports.deleteProject = (req, res)=>{
+
+  Projects.findByIdAndRemove(req.params.id, (err,date)=>{
+    if(err){
+      return res.status(404).json('Bad id!');
+    }
+    return res.status(200).json('Deleted!')
+  })
 }
