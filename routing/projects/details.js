@@ -103,3 +103,14 @@ exports.deleteProject = (req, res)=>{
     return res.status(200).json('Deleted!')
   })
 }
+
+
+exports.updateProject = (req, res)=>{
+
+  Projects.findByIdAndUpdate(req.params.id,{$set: req.body},(err, date)=>{
+      if(err){
+        return res.status(404).json('Bad iD!');
+      }
+        return res.status(200).json(date);
+  })
+}

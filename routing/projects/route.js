@@ -10,5 +10,6 @@ router
   .get('/app/projects', project.getAllProject)
   .delete('/app/project/:id', project.deleteProject)
   .get('/app/project/:id', project.getProject)
+  .put('/app/project/:id', project.updateProject)
 
 module.exports = router;
