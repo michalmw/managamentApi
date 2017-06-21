@@ -2,10 +2,11 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
-    name: String,
-    users : [
-      {
-      }
-    ]
+    title : String,
+    price : Number,
+    createdData: String,
+    owner : String,
+    teamID : String,
+    comments : []
 });
 module.exports = mongoose.model('Teams', userSchema, 'users');

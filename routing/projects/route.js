@@ -5,6 +5,6 @@ const router = express.Router();
 const project = require('./details.js');
 
 router
-  .post('/app/project', project.addProject)
+  .post('/app/project', project.createProject)
 
 module.exports = router;

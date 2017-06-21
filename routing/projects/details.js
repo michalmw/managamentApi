@@ -35,10 +35,13 @@ exports.createProject = (req, res)=>{
   newProject.teamID = req.body.teamID;
   newProject.comments = [];
 
-  newProject.save( (err,res)=>{
-    if(err){
-      return res.status(500).json('Something went wrong')
+  newProject.save((err, result)=>{
+      if(err){
+      console.log(err);
+      return res.status(500).json(err);
     }
-    return res.status(200).json(res);
-  })
+      console.log(result);
+      return res.status(200).json(result);
+  });
+
 }
