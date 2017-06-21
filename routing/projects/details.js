@@ -1,4 +1,5 @@
-const Projects = require('../../models/project')
+const User = require('../../models/user');
+const Projects = require('../../models/project');
 
 const getTime = (what)=>{
 
@@ -64,14 +65,22 @@ exports.addComment = (req, res)=>{
    res.status(200).json(date)
  });
 
-},
-{
-    "__v": 0,
-    "teamID": "#2312312313",
-    "owner": "DawidGrabara",
-    "createdData": "2017:06:21:16:43:25",
-    "price": 2000,
-    "title": "NewProject",
-    "_id": "594a860d4879210a706f0dd2",
-    "comments": []
+}
+
+exports.getAllProject = (req, res)=>{
+
+  var usersProjection = {
+    users: false,
+    name : false,
+    login: false,
+    password: false
+};
+
+Projects.find({}, usersProjection, function (err, project) {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    return res.status(200).json(project)
+});
+
 }

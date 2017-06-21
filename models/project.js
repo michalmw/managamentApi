@@ -9,4 +9,4 @@ const userSchema = new Schema({
     teamID : String,
     comments : []
 });
-module.exports = mongoose.model('Teams', userSchema, 'users');
+module.exports = mongoose.model('Projects', userSchema, 'users');
