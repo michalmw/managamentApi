@@ -5,10 +5,12 @@ const mongodbURL = 'mongodb://localhost/Users'
 const jwt = require('express-jwt')
 const bcrypt = require('bcrypt');
 const util = require('util')
+const validator = require('express-validator');
 const app = express()
 
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(validator());
 app.use(bodyParser.json())
 
 mongoose.connect(mongodbURL, (err, res) => {
