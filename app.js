@@ -39,6 +39,9 @@ app.use('/', client);
 let teams = require('./routing/teams/route')
 app.use('/', teams);
 
+let projects = require('./routing/projects/route')
+app.use('/', projects);
+
 
 app.listen(8080, function() {
   console.log('Server Started on Port 8080...')
