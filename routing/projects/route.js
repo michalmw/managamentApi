@@ -5,11 +5,6 @@ const router = express.Router();
 const project = require('./details.js');
 
 router
-  .get('/app/teams', project.findAllTeams)
-  .post('/app/teams', project.createTeam)
-  .put('/app/teams/:id', project.addUserToTeam)
-  .put('/app/teams/deleteUser/:id', project.deleteUserFromTeam)
-  .delete('/app/teams/:id', project.deleteTeam)
-  .put('/app/teamUPDATE/:id', project.update)
+  .post('/app/project', project.addProject)
 
 module.exports = router;
