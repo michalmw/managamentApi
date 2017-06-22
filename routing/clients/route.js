@@ -12,6 +12,4 @@ router
   .post('/app/login', clients.login)
   .put('/app/users/:id', clients.update)
 
-
-
 module.exports = router;

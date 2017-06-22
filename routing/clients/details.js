@@ -3,16 +3,30 @@ const User = require('../../models/user');
 const encr = require('./encryption');
 const validator = require('validator');
 
-exports.findAll = (req, res)=>{
-  User.find({})
-    .exec((err, date)=>{
-      if(err){
-        return res.status(500).json(err);
-      }
-        console.log(date);
-        return res.status(200).json(date)
 
-    })
+/**
+ *@api {get}  / findById - {done} (witchout validation)
+ *@api {get}  / addClient - {done} (validation)
+ *@api {post}  / findById - {done} (witchout validation)
+ *@api {post}  / login - {done} (witchout validation)
+ *@api {delete}  / deleteById - {done} (witchout validation)
+ *@api {put}  / update - {done} (validation)
+ */
+
+exports.findAll = (req, res)=>{
+  let usersProjection = {
+    users: false,
+    name : false,
+    comment : false,
+    title : false
+};
+
+User.find({}, usersProjection, (err, project)=> {
+    if (err) {
+      return res.status(500).json(err);
+    }
+    return res.status(200).json(project)
+  });
 };
 
 exports.addClient = (req, res)=>{
@@ -71,7 +85,7 @@ exports.deleteById = (req, res)=>{
 
 exports.login = (req, res)=>{
   let encrypted = encr.encrypt(req.body.password);
-    console.log(encrypted);
+  console.log(encrypted);
 
   User.findOne({"password" : encrypted, "login" : req.body.login})
     .exec((err, date)=>{
@@ -96,16 +110,12 @@ exports.update = (req, res)=>{
 
   let encrypted = encr.encrypt(req.body.password);
 
-  let data = {
-    login : req.body.login,
-    password : encrypted
-  }
+  req.body.password = encrypted;
 
-  User.findOneAndUpdate({"_id" : req.params.id}, data, {upsert:true}, function(err, doc){
+  User.findOneAndUpdate({"_id" : req.params.id}, req.body, {upsert:true},(err, doc)=>{
     if (err){
       return res.status(404).json('Cannot find user with this Id');
     }
     return res.status(200).json("Succesfully saved!")
 });
-
 }
