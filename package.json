@@ -20,6 +20,8 @@
     "mongoose": "^4.7.7",
     "path": "^0.12.7",
     "validator": "^6.2.1",
-    "validator.js": "^2.0.3"
+    "validator.js": "^2.0.3",
+    "crypto": ""
+
   }
 }

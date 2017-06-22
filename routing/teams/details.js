@@ -5,7 +5,7 @@ const validator = require('validator');
 /**
  *@api {get}  / findAllTeams - {done} (useless)
  *@api {post}  / createTeam - {done} (validation 0.8)
- *@api {put}  / addUserToTeam - {doing} (validation 0.8)
+ *@api {put}  / addUserToTeam - {done} (validation 0.8)
  *@api {put}  / update - {done} (validation)
  *@api {delete}  / deleteTeam - {done} (witchout validation)
  */
