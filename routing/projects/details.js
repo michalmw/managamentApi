@@ -10,7 +10,7 @@ const time = require('./time');
  *@api {put}  / updateProject - {done} (witchout validation)
  *@api {delete}  / deleteProject - {done} (witchout validation)
  */
- 
+
 exports.createProject = (req, res)=>{
 
   let newProject = new Projects();
@@ -46,20 +46,12 @@ exports.addComment = (req, res)=>{
 }
 
 exports.getAllProject = (req, res)=>{
-
-  let usersProjection = {
-    users: false,
-    name : false,
-    login: false,
-    password: false
-};
-
-Projects.find({}, usersProjection, (err, project)=>{
-    if (err) {
-      return res.status(500).json(err);
+  Projects.find({title: {$exists:true},price: {$exists:true}}, (err, result)=>{
+    if(err){
+      return res.status(500).json(err)
     }
-    return res.status(200).json(project)
-  });
+    return res.status(200).json(result)
+  })
 }
 
 exports.getProject = (req, res)=>{

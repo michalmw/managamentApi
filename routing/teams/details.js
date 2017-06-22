@@ -46,21 +46,12 @@ exports.createTeam = (req, res) =>{
     });
 };
 exports.findAllTeams = (req, res) =>{
-  let usersProjection = {
-    users: false,
-    title : false,
-    teamID : false,
-    comments : false,
-    owner : false,
-    createdData: false
-};
-
-Teams.find({}, usersProjection, (err, users)=> {
-    if (err) {
-      return res.status(500).json(err);
+  Teams.find({name: {$exists:true},users: {$exists:true}}, (err, result)=>{
+    if(err){
+      return res.status(500).json(err)
     }
-    return res.status(200).json(users)
-  });
+    return res.status(200).json(result)
+  })
 }
 
 exports.deleteTeam = (req, res)=>{
