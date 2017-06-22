@@ -1,45 +1,23 @@
 const User = require('../../models/user');
 const Projects = require('../../models/project');
+const time = require('./time');
 
-const getTime = (what)=>{
 
-      let date = new Date()
-
-      let hour = date.getHours();
-
-      hour = (hour < 10 ? "0" : "") + hour;
-
-      let min  = date.getMinutes();
-
-      min = (min < 10 ? "0" : "") + min;
-
-      let sec  = date.getSeconds();
-
-      sec = (sec < 10 ? "0" : "") + sec;
-
-      let year = date.getFullYear();
-
-      let month = date.getMonth() + 1;
-
-      month = (month < 10 ? "0" : "") + month;
-
-      let day  = date.getDate();
-
-      day = (day < 10 ? "0" : "") + day;
-
-      if(what == "all"){
-        return year + ":" + month + ":" + day + ":" + hour + ":" + min + ":" + sec;
-      }
-      return  month + ":" + day + ":" + hour + ":" + min;
-}
-
+/**
+ *@api {get}  / getAllProject - {done} (witchout validation)
+ *@api {get}  / getProject - {done} (witchout validation)
+ *@api {post}  / addComment - {done} (witchout validation)
+ *@api {put}  / updateProject - {done} (witchout validation)
+ *@api {delete}  / deleteProject - {done} (witchout validation)
+ */
+ 
 exports.createProject = (req, res)=>{
 
   let newProject = new Projects();
 
   newProject.title = req.body.title;
   newProject.price = req.body.price;
-  newProject.createdData =  getTime();//Server adding this not client
+  newProject.createdData =  time.getTime();//Server adding this not client
   newProject.owner = req.body.owner;
   newProject.teamID = req.body.teamID;
   newProject.comments = [];
@@ -56,7 +34,7 @@ exports.createProject = (req, res)=>{
 
 exports.addComment = (req, res)=>{
 
- req.body.createdData = getTime('month')
+ req.body.createdData = date.getTime('month')
 
  Projects.findByIdAndUpdate(req.params.id,{$push: {"comments": req.body}}, { new: true }, function (err, date) {
    if (err) {
@@ -76,16 +54,16 @@ exports.getAllProject = (req, res)=>{
     password: false
 };
 
-Projects.find({}, usersProjection, function (err, project) {
+Projects.find({}, usersProjection, (err, project)=>{
     if (err) {
       return res.status(500).json(err);
     }
     return res.status(200).json(project)
-});
-
+  });
 }
+
 exports.getProject = (req, res)=>{
-  console.log('a')
+
   Projects.findById(req.params.id, (err,date)=>{
     if(err){
       return res.status(404).json('Bad ID!');
@@ -103,7 +81,6 @@ exports.deleteProject = (req, res)=>{
     return res.status(200).json('Deleted!')
   })
 }
-
 
 exports.updateProject = (req, res)=>{
 

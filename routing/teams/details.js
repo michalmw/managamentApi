@@ -1,16 +1,25 @@
 const Teams = require('../../models/teams');
 const validator = require('validator');
 
+
+/**
+ *@api {get}  / findAllTeams - {done} (useless)
+ *@api {post}  / createTeam - {done} (validation 0.8)
+ *@api {put}  / addUserToTeam - {doing} (validation 0.8)
+ *@api {put}  / update - {done} (validation)
+ *@api {delete}  / deleteTeam - {done} (witchout validation)
+ */
+
 const  saveDate =  (req, res)=>{
   let team = new Teams();
   team.name = req.name;
   team.users = req.users;
   team.save((err, date)=>{
         if(err){
-          res.status(500).json(err);
+          return res.status(500).json(err);
         }
           console.log(date)
-          res.status(200).json(date);
+          return res.status(200).json(date);
   })
 }
 
@@ -46,17 +55,17 @@ exports.findAllTeams = (req, res) =>{
     createdData: false
 };
 
-Teams.find({}, usersProjection, function (err, users) {
+Teams.find({}, usersProjection, (err, users)=> {
     if (err) {
       return res.status(500).json(err);
     }
     return res.status(200).json(users)
-});
+  });
 }
 
 exports.deleteTeam = (req, res)=>{
 
-  Teams.findByIdAndRemove(req.params.id, function (err, date) {
+  Teams.findByIdAndRemove(req.params.id, (err, date)=> {
     if (err) {
       return res.status(404).json('Cannot find ID in database');
     }
@@ -70,7 +79,7 @@ exports.update = (req, res)=>{
     return res.status(404).json('ID is wrong!')
   }
   res.status(200).json(date)
-});
+  });
 }
 
 exports.deleteUserFromTeam = (req, res)=>{
@@ -86,20 +95,18 @@ exports.deleteUserFromTeam = (req, res)=>{
   Teams.findByIdAndUpdate(req.params.id,{$pull: {"users": req.body}}, function (err, date) {
   if (err){ return res.status(404).json('Bad team id!')}
   res.status(200).json(date)
-});
+    });
+}
 
-    }
 exports.addUserToTeam = (req, res)=>{
   req.checkBody('spec', "You don't have chosen properly this!").isLength({min:3,max:30});
   req.checkBody('userID', "You don't have user ID!").isLength({min:3,max:30});
-
 
   const errors = req.validationErrors();
     if (errors)
       return res.status(400).json({"error": errors})
 
-
-  Teams.findById(req.body.id, (err, result)=>{
+  Teams.findById(req.body.userID, (err, result)=>{
     if(err){
       return res.status(404).json('Cannot add user which ID what doesn\'t exist in database!')
     }
@@ -107,19 +114,19 @@ exports.addUserToTeam = (req, res)=>{
   })
   Teams.findByIdAndUpdate(req.params.id,{$push: {"users": req.body}}, { new: true }, function (err, date) {
   if (err) return handleError(err);
-  res.status(200).json(date)
-});
-},
-{
-       "_id": "59454d2be7d122129cb72b00",
-       "users": [
-           {
-               "spec": "Backend",
-               "userID": "5944557d68ab5c1868e73cee"
-           },
-           {
-               "spec": "FrontEnd",
-               "userID": "3232"
-           }
-       ]
-   }
+  return res.status(200).json(date)
+  });
+}
+
+/*
+"_id": "594458f65f751305b4beed57",
+       "login": "4534543534",
+       "password": "57df86c374222c25631db15ea6b64dc9e11c",
+       "__v": 0
+   },
+   {
+       "_id": "594459500a222d142c6e3eb2",
+       "login": "4534543534",
+       "password": "57df86c374222c25631db15ea6b64dc9e11c",
+       "__v": 0
+*/
