@@ -14,19 +14,12 @@ const validator = require('validator');
  */
 
 exports.findAll = (req, res)=>{
-  let usersProjection = {
-    users: false,
-    name : false,
-    comment : false,
-    title : false
-};
-
-User.find({}, usersProjection, (err, project)=> {
-    if (err) {
-      return res.status(500).json(err);
-    }
-    return res.status(200).json(project)
-  });
+   User.find({login: {$exists:true},password: {$exists:true}}, (err, result)=>{
+     if(err){
+       return res.status(500).json(err)
+     }
+     return res.status(200).json(result)
+   })
 };
 
 exports.addClient = (req, res)=>{
