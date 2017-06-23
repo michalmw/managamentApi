@@ -1,0 +1,148 @@
+---
+swagger: "2.0"
+info:
+  description: " Above is desciption of every rest for frontEnd"
+  version: "0.0.1"
+  title: "Managment API DOC"
+paths:
+  /app/users:
+    get:
+      description: "get All Users from mongoDB in Json"
+      operationId: "appUsersGET"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+      x-swagger-router-controller: "Default"
+    post:
+      description: "Add one user to mongodb"
+      operationId: "appUsersPOST"
+      parameters:
+      - name: "login"
+        in: "query"
+        description: "The login of our user"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password of our user"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Added User and password was encrypted!"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "Default"
+  /app/users/id:
+    get:
+      description: "get one user by ID from mongoDB in Json"
+      operationId: "appUsersIdGET"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_2"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "Default"
+    put:
+      description: "Updated a password or login of user ID. Must be beetwen 6-20 char.\
+        \ Both can be updated"
+      operationId: "appUsersIdPUT"
+      parameters:
+      - name: "login"
+        in: "query"
+        description: "The login of our user"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password of our user"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_3"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "Default"
+    delete:
+      description: "Remove one user by ID from mongodb"
+      operationId: "appUsersIdDELETE"
+      parameters: []
+      responses:
+        200:
+          description: "Removed!"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "Default"
+  /app/login:
+    get:
+      description: "get one user by ID from mongoDB in Json"
+      operationId: "appLoginGET"
+      parameters:
+      - name: "login"
+        in: "query"
+        description: "The login of our user"
+        required: true
+        type: "string"
+      - name: "password"
+        in: "query"
+        description: "The password of our user"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "OK"
+        400:
+          description: "Bad login or password"
+      x-swagger-router-controller: "Default"
+definitions:
+  inline_response_200_1:
+    properties:
+      id:
+        type: "string"
+        example: "23v4g23423hn23jh423j42"
+      login:
+        type: "string"
+        example: "Dawid"
+      password:
+        type: "string"
+        example: "v234v5234v5324v5234v5324"
+  inline_response_200:
+    properties:
+      login:
+        type: "string"
+        example: "Dawid"
+      password:
+        type: "string"
+        example: "prypke4567"
+  inline_response_200_2:
+    properties:
+      id:
+        type: "string"
+        example: "v234v5234v5234"
+      login:
+        type: "string"
+        example: "Dawid"
+      password:
+        type: "string"
+        example: "prypke4567"
+  inline_response_200_3:
+    properties:
+      login:
+        type: "string"
+        example: "new login"
+      password:
+        type: "string"
+        example: "new password"
