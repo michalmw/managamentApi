@@ -15,9 +15,9 @@ app.use(bodyParser.json())
 
 mongoose.connect(mongodbURL, (err, res) => {
   if (err)
-  return console.log("Baza danych nie odpowiada! : " + err)
+  return console.log("Cannot connect!: " + err)
 
-  console.log(" Połączono pomyślnie")
+  console.log("connected!")
 })
 
 app.use((req, res, next) => {

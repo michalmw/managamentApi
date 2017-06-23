@@ -1,6 +1,5 @@
 const User = require('../../models/user');
 const Projects = require('../../models/project');
-const time = require('./time');
 
 
 /**
@@ -17,32 +16,33 @@ exports.createProject = (req, res)=>{
 
   newProject.title = req.body.title;
   newProject.price = req.body.price;
-  newProject.createdData =  time.getTime();//Server adding this not client
+  newProject.createdData =  new Date();//Server adding this not client
   newProject.owner = req.body.owner;
   newProject.teamID = req.body.teamID;
   newProject.comments = [];
 
   newProject.save((err, result)=>{
       if(err){
-      console.log(err);
       return res.status(500).json(err);
     }
-      console.log(result);
       return res.status(200).json(result);
   });
 }
 
 exports.addComment = (req, res)=>{
 
- req.body.createdData = date.getTime('month')
+  let date = new Date();
 
- Projects.findByIdAndUpdate(req.params.id,{$push: {"comments": req.body}}, { new: true }, function (err, date) {
+  let hour =  `${date.getDate()}: ${date.getDay()}: ${date.getHours()}: ${date.getMinutes()}`
+
+  req.body.createdData = hour;
+
+  Projects.findByIdAndUpdate(req.params.id,{$push: {"comments": req.body}}, { new: true }, (err, date)=>{
    if (err) {
      return res.status(404).json('Cannot find project with this ID!')
    }
    res.status(200).json(date)
- });
-
+  });
 }
 
 exports.getAllProject = (req, res)=>{

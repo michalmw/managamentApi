@@ -27,15 +27,14 @@ exports.addClient = (req, res)=>{
   let password = validator.isLength(req.body.password,{min :6, max : 20});
 
   if(!password || !login){
-    return res.status(404).json('nie spełnia wymaganej ilości znaków');
+    return res.status(400).json('The number of char must be beetwen 6 to 20');
   }
 
   if(req.body.login == req.body.password){
-    return res.status(200).json('Hasło i login nie może być takie samo!');
+    return res.status(400).json('Password and Login cannot be the same!');
 
   }
   let encrypted = encr.encrypt(req.body.password);
-  console.log(encrypted);
 
   let user =  new User();
   user.password = encrypted;
@@ -43,22 +42,19 @@ exports.addClient = (req, res)=>{
 
   user.save((err, result)=>{
       if(err){
-      console.log(err);
       return res.status(500).json(err);
     }
-      console.log(result);
       return res.status(200).json(result);
   });
 };
 
 exports.findById = (req, res)=>{
 
-  User.find({"_id" : req.params.id})
+  User.findById(req.params.id)
     .exec((err, date)=>{
       if(err){
-        return res.status(404).json("Nie znaleziono o takim ID");
+        return res.status(404).json("Cannot find with this ID!");
       }
-        console.log(date);
         return res.status(200).json(date);
     })
 };
@@ -78,7 +74,6 @@ exports.deleteById = (req, res)=>{
 
 exports.login = (req, res)=>{
   let encrypted = encr.encrypt(req.body.password);
-  console.log(encrypted);
 
   User.findOne({"password" : encrypted, "login" : req.body.login})
     .exec((err, date)=>{
@@ -98,9 +93,9 @@ exports.update = (req, res)=>{
   let password = validator.isLength(req.body.password,{min :6, max : 20});
 
   if(!password || !login){
-    return res.status(404).json('nie spełnia wymaganej ilości znaków');
-  }
+    return res.status(400).json('The number of char must be beetwen 6 to 20');
 
+  }
   let encrypted = encr.encrypt(req.body.password);
 
   req.body.password = encrypted;
@@ -110,5 +105,5 @@ exports.update = (req, res)=>{
       return res.status(404).json('Cannot find user with this Id');
     }
     return res.status(200).json("Succesfully saved!")
-});
+  });
 }
