@@ -1,7 +1,7 @@
 {
-  "name": "managment-api-doc",
-  "version": "0.0.1",
-  "description": " Above is desciption of every rest for frontEnd",
+  "name": "managment-api",
+  "version": "1.0.1",
+  "description": "This is a documention of all rest for frontend",
   "main": "index.js",
   "scripts": {
 	"prestart": "npm install",

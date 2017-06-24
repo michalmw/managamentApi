@@ -45,7 +45,7 @@ exports.createTeam = (req, res) =>{
 exports.findAllTeams = (req, res) =>{
   Teams.find({name: {$exists:true},users: {$exists:true}}, (err, result)=>{
     if(err){
-      return res.status(404).json(err)
+      return res.status(500).json(err)
     }
     return res.status(200).json(result)
   })
