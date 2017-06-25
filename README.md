@@ -32,7 +32,7 @@ and check how you want
 example: 
 - if you want have doc on "/app/docs"
 
-apiDocs: is only JSON File
+apiDocs: is only JSON File,
 swaggerUi: is documentation interface (interactive doc.)
 ```
 var defaultOptions = {
