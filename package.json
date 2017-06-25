@@ -1,14 +1,21 @@
 {
-  "name": "users",
+  "name": "api-by-surprisedesign",
   "version": "1.0.0",
-  "description": "",
+  "description": "Api by SurpriseDesign ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+	"prestart": "npm install",
+	"start": "node index.js"
   },
+  "keywords": [
+    "swagger"
+  ],
   "author": "Dawid Grabara",
   "license": "ISC",
   "dependencies": {
+    "connect": "^3.2.0",
+    "js-yaml": "^3.3.0",
+    "swagger-tools": "0.10.1",
     "bcrypt": "^1.0.2",
     "body-parser": "",
     "cookie-parser": "^1.4.3",
