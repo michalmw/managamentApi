@@ -1,13 +1,9 @@
 swagger: "2.0"
 info:
   description: |
-    This is a sample server Petstore server.
-
-    [Learn about Swagger](http://swagger.io) or join the IRC channel `#swagger` on irc.freenode.net.
-
-    For this sample, you can use the api key `special-key` to test the authorization filters
-  version: "1.0.0"
-  title: Swagger Petstore
+    Api by SurpriseDesign
+  version: "0.9"
+  title: Api by SurpriseDesign
   termsOfService: http://helloreverb.com/terms/
   contact:
     name: apiteam@swagger.io
@@ -23,14 +19,10 @@ paths:
     post:
       tags:
       - User
-      summary: Updates a pet in the store with form data
+      summary: add User
       description: ""
-      operationId: updatePetWithForm
-      consumes:
-      - application/x-www-form-urlencoded
       produces:
       - application/json
-      - application/xml
       parameters:
         - name: "User"
           in: "body"
@@ -42,7 +34,7 @@ paths:
         '200':
           description: "Added"
         '400':
-          description: "log or pas"
+          description: "loggin or password is incorect"
 
     get:
        tags:
@@ -63,7 +55,7 @@ paths:
             description: "server error"
   
   /app/users/id:
-    post:
+    get:
       tags:
         - User
       summary: "Find one User by ID"
@@ -190,7 +182,19 @@ paths:
                   example: "34h6j3434h634"
                 comments:
                   type: array
-                  items: {}
+                  items:
+                   type: object
+                   properties:
+                      name:
+                        type: string
+                        example: "Kasia"
+                      authorID:
+                        type: string
+                        example: "e244542352345"
+                      description:
+                        type: string
+                        example: "Not bad project."
+                        
           '500':
             description: "server error"  
   
@@ -229,7 +233,13 @@ paths:
                   example: "34h6j3434h634"
                 comments:
                   type: array
-                  items: {}
+                  items:
+                   type: object
+                   properties:
+                      description:
+                        type: string
+                        example: "This comment is only example it doesn't exist"
+                  
           '500':
             description: "server error"  
           
@@ -260,9 +270,21 @@ paths:
                   example: "34h6j3434h634"
                 comments:
                   type: array
-                  items: {}
-          '500':
-            description: "server error"
+                  items:
+                   type: object
+                   properties:
+                      name:
+                       type: string
+                       example: "example name"
+                      authorID:
+                       type: string
+                       example: "example authorID"
+                      description:
+                       type: string
+                       example: "description"
+                    
+          '404':
+            description: "Cannot find project with this ID"
             
     delete:
        tags:
@@ -283,7 +305,7 @@ paths:
        parameters:
         - name: "User"
           in: "body"
-          description: "add Project"
+          description: "update project"
           required: true
           schema:
             $ref: '#/definitions/Project'
@@ -309,7 +331,18 @@ paths:
                   example: "new teamID"
                 comments:
                   type: array
-                  items: {}
+                  items:
+                   type: object
+                   properties:
+                      name:
+                       type: string
+                       example: "example name"
+                      authorID:
+                       type: string
+                       example: "example authorID"
+                      description:
+                       type: string
+                       example: "description"
           '404':
             description: "Cannot find project witch this ID"  
           
@@ -347,9 +380,18 @@ paths:
                   example: "34h6j3434h634"
                 comments:
                   type: array
-                  items: {
-                    type: object
-                  }
+                  items:
+                   type: object
+                   properties:
+                      name:
+                       type: string
+                       example: "given name"
+                      authorID:
+                       type: string
+                       example: "given authorID"
+                      description:
+                       type: string
+                       example: "given description"
           '404':
             description: "Cannot find project witch this ID"  
           
@@ -368,7 +410,16 @@ paths:
                   example : "Workers"
                 users:
                   type: array
-                  minItems: 2
+                  items:
+                   type: object
+                   properties:
+                      spec:
+                       type: string
+                       example: "backend"
+                      userID:
+                       type: string
+                       example: "t5465t546546t"
+                      
           '500':
             description: "server error"
             
@@ -382,7 +433,7 @@ paths:
           description: "add Comment"
           required: true
           schema:
-            $ref: '#/definitions/Project'
+            $ref: '#/definitions/Team'
        responses:
           '200':
             description: "ok"
@@ -406,7 +457,7 @@ paths:
      delete:
       tags:
         - Team
-      summary: "Deleted"
+      summary: "Delete team"
       description: ""
       responses:
           '200':
@@ -425,12 +476,25 @@ paths:
           description: "User to remove"
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/UserToTeam'
        responses:
           '200':
             description: "Added user to team"
+            schema:
+              properties:
+                name:
+                  type: string
+                  example : "Workers"
+                users:
+                  type: array
+                  items: {
+                    type: object
+                  }
+                  example:
+                    spec: "tech"
+                    userID: "45ggjh73k876"
           '400':
-            description: "userID is incorrect or log or pas"
+            description: "userID is incorect"
           "404":
             description: "Cannot find team with given ID"    
           
@@ -446,7 +510,7 @@ paths:
           description: "User to remove"
           required: true
           schema:
-            $ref: '#/definitions/User'
+            $ref: '#/definitions/UserToTeam'
        responses:
           '200':
             description: "deleted user from team"
@@ -462,11 +526,12 @@ paths:
       tags:
         - Team
       summary: "Update, replace name"
-      description: ""
+      description: "j"
       parameters:
         - name: "name"
           in: "query"
           type: string
+          description: "The name of team"
           required: true
       responses:
           '200':
@@ -502,43 +567,16 @@ definitions:
         type: string
       password:
         type: string
+        
+  UserToTeam:
+    type: object
+    properties:
+      spec:
+        type: string
+      userID:
+        type: string
       
-        
-  Team:
-    type: object
-    properties:
-      id:
-        type: integer
-        format: int64
-      username:
-        type: string
-      firstName:
-        type: string
-      lastName:
-        type: string
-      email:
-        type: string
-      password:
-        type: string
-      phone:
-        type: string
-      userStatus:
-        type: integer
-        format: int32
-        description: User Status
-        
-  Project:
-    type: object
-    properties:
-      title:
-        type: string
-      price:
-        type: number
-      owner:
-        type: string
-      teamID:
-        type: string
-        
+  
   Comment:
     type: object
     properties:
@@ -548,3 +586,42 @@ definitions:
         type: string
       description:
         type: string
+        
+  Team:
+    type: object
+    properties:
+      name:
+        type: string
+      users:
+        type: array
+        items:
+         type: object
+         properties:
+          spec:
+            type: string
+          userID:
+            type: string
+  
+  Project:
+    type: object
+    properties:
+      title:
+        type: string
+      price:
+        type: string
+      owner:
+        type: string
+      teamID:
+        type: string
+      
+        
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
