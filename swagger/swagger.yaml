@@ -1,0 +1,693 @@
+---
+swagger: "2.0"
+info:
+  description: "Api by SurpriseDesign\n"
+  version: "0.9"
+  title: "Api by SurpriseDesign"
+  termsOfService: "http://helloreverb.com/terms/"
+  contact:
+    name: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "petstore.swagger.io"
+basePath: "/v2"
+schemes:
+- "http"
+paths:
+  /app/users/:
+    get:
+      tags:
+      - "User"
+      summary: "get All users"
+      operationId: "appUsersGET"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200"
+        500:
+          description: "server error"
+      x-swagger-router-controller: "User"
+    post:
+      tags:
+      - "User"
+      summary: "add User"
+      description: ""
+      operationId: "appUsersPOST"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "add User"
+        required: true
+        schema:
+          $ref: "#/definitions/User_1"
+      responses:
+        200:
+          description: "Added"
+        400:
+          description: "loggin or password is incorect"
+      x-swagger-router-controller: "User"
+  /app/users/id:
+    get:
+      tags:
+      - "User"
+      summary: "Find one User by ID"
+      description: ""
+      operationId: "appUsersIdGET"
+      parameters: []
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_1"
+        404:
+          description: "Cannot find with this ID"
+      x-swagger-router-controller: "User"
+    put:
+      tags:
+      - "User"
+      summary: "Update login or password"
+      description: ""
+      operationId: "appUsersIdPUT"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "add User"
+        required: true
+        schema:
+          $ref: "#/definitions/User_2"
+      responses:
+        200:
+          description: "OK"
+          schema:
+            $ref: "#/definitions/inline_response_200_2"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "User"
+    delete:
+      tags:
+      - "User"
+      summary: "Delete user"
+      description: ""
+      operationId: "appUsersIdDELETE"
+      parameters: []
+      responses:
+        200:
+          description: "Deleted"
+        404:
+          description: "Cannot find user with this ID"
+      x-swagger-router-controller: "User"
+  /app/login:
+    post:
+      tags:
+      - "Login"
+      summary: "Login to Api"
+      description: ""
+      operationId: "appLoginPOST"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "add User"
+        required: true
+        schema:
+          $ref: "#/definitions/User_3"
+      responses:
+        200:
+          description: ""
+          schema:
+            $ref: "#/definitions/inline_response_200_3"
+        400:
+          description: "Bad login or password"
+      x-swagger-router-controller: "Login"
+  /app/projects:
+    get:
+      tags:
+      - "Project"
+      summary: "get All Project"
+      operationId: "appProjectsGET"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_4"
+        500:
+          description: "server error"
+      x-swagger-router-controller: "Project"
+    post:
+      tags:
+      - "Project"
+      summary: "add Project"
+      operationId: "appProjectsPOST"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "add Project"
+        required: true
+        schema:
+          $ref: "#/definitions/User_4"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_5"
+        500:
+          description: "server error"
+      x-swagger-router-controller: "Project"
+  /app/projects/id:
+    get:
+      tags:
+      - "Project"
+      summary: "get one by ID project"
+      operationId: "appProjectsIdGET"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_6"
+        404:
+          description: "Cannot find project with this ID"
+      x-swagger-router-controller: "Project"
+    put:
+      tags:
+      - "Project"
+      summary: "Update Project. Only replace properties"
+      operationId: "appProjectsIdPUT"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "update project"
+        required: true
+        schema:
+          $ref: "#/definitions/User_5"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_7"
+        404:
+          description: "Cannot find project witch this ID"
+      x-swagger-router-controller: "Project"
+    delete:
+      tags:
+      - "Project"
+      summary: "Delete project"
+      operationId: "appProjectsIdDELETE"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+        404:
+          description: "Cannot find project with this ID"
+      x-swagger-router-controller: "Project"
+  /app/project/comment/id:
+    put:
+      tags:
+      - "Project"
+      summary: "Add Comment"
+      operationId: "appProjectCommentIdPUT"
+      parameters:
+      - in: "body"
+        name: "Comment"
+        description: "add Comment"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment_1"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_8"
+        404:
+          description: "Cannot find project witch this ID"
+      x-swagger-router-controller: "Project"
+  /app/teams:
+    get:
+      tags:
+      - "Team"
+      summary: "get all teams"
+      operationId: "appTeamsGET"
+      parameters: []
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_9"
+        500:
+          description: "server error"
+      x-swagger-router-controller: "Team"
+    post:
+      tags:
+      - "Team"
+      summary: "Add Team"
+      operationId: "appTeamsPOST"
+      parameters:
+      - in: "body"
+        name: "Comment"
+        description: "add Comment"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment_2"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_10"
+        400:
+          description: "At least of userID is incorrect"
+      x-swagger-router-controller: "Team"
+  /app/teams/id:
+    put:
+      tags:
+      - "Team"
+      summary: "Add user to team"
+      operationId: "appTeamsIdPUT"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "User to remove"
+        required: true
+        schema:
+          $ref: "#/definitions/User_6"
+      responses:
+        200:
+          description: "Added user to team"
+          schema:
+            $ref: "#/definitions/inline_response_200_10"
+        400:
+          description: "userID is incorect"
+        404:
+          description: "Cannot find team with given ID"
+      x-swagger-router-controller: "Team"
+    delete:
+      tags:
+      - "Team"
+      summary: "Delete team"
+      description: ""
+      operationId: "appTeamsIdDELETE"
+      parameters: []
+      responses:
+        200:
+          description: "Deleted"
+        404:
+          description: "Team with given ID doesn't exist"
+      x-swagger-router-controller: "Team"
+  /app/teams/deleteUser/id:
+    put:
+      tags:
+      - "Team"
+      summary: "Remove user from team"
+      operationId: "appTeamsDeleteUserIdPUT"
+      parameters:
+      - in: "body"
+        name: "User"
+        description: "User to remove"
+        required: true
+        schema:
+          $ref: "#/definitions/User_7"
+      responses:
+        200:
+          description: "deleted user from team"
+        400:
+          description: "userID is incorrect or log or pas"
+        404:
+          description: "Cannot find team with given ID"
+      x-swagger-router-controller: "Team"
+  /app/teams/update/id:
+    put:
+      tags:
+      - "Team"
+      summary: "Update, replace name"
+      description: "j"
+      operationId: "appTeamsUpdateIdPUT"
+      parameters:
+      - name: "name"
+        in: "query"
+        description: "The name of team"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "ok"
+          schema:
+            $ref: "#/definitions/inline_response_200_11"
+        404:
+          description: "Team with given ID doesn't exist"
+      x-swagger-router-controller: "Team"
+definitions:
+  User:
+    type: "object"
+    properties:
+      login:
+        type: "string"
+      password:
+        type: "string"
+  UserToTeam:
+    type: "object"
+    properties:
+      spec:
+        type: "string"
+      userID:
+        type: "string"
+  Comment:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      authorID:
+        type: "string"
+      description:
+        type: "string"
+  Team:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      users:
+        type: "array"
+        items:
+          $ref: "#/definitions/appteams_users"
+  Project:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      price:
+        type: "string"
+      owner:
+        type: "string"
+      teamID:
+        type: "string"
+  inline_response_200:
+    properties:
+      login:
+        type: "string"
+        example: "Marek"
+      password:
+        type: "string"
+        example: "3fg5h2jh2"
+  User_1:
+    type: "object"
+    properties:
+      login:
+        type: "string"
+      password:
+        type: "string"
+  inline_response_200_1:
+    properties:
+      id:
+        type: "string"
+        example: "34f523h23h53"
+      login:
+        type: "string"
+        example: "Marek"
+      password:
+        type: "string"
+        example: "3fg5h2jh2"
+  User_2:
+    type: "object"
+    properties:
+      login:
+        type: "string"
+      password:
+        type: "string"
+  inline_response_200_2:
+    properties:
+      id:
+        type: "string"
+        example: "34f523h23h53"
+      login:
+        type: "string"
+        example: "new login"
+      password:
+        type: "string"
+        example: "new password"
+  User_3:
+    type: "object"
+    properties:
+      login:
+        type: "string"
+      password:
+        type: "string"
+  inline_response_200_3:
+    properties:
+      id:
+        type: "string"
+        example: "34f523h23h53"
+      login:
+        type: "string"
+        example: "logged"
+      password:
+        type: "string"
+        example: "prypeser"
+  inline_response_200_4_comments:
+    properties:
+      name:
+        type: "string"
+        example: "Kasia"
+      authorID:
+        type: "string"
+        example: "e244542352345"
+      description:
+        type: "string"
+        example: "Not bad project."
+  inline_response_200_4:
+    properties:
+      title:
+        type: "string"
+        example: "Workers"
+      price:
+        type: "number"
+        example: 2000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "Dawid"
+      teamID:
+        type: "string"
+        example: "34h6j3434h634"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_4_comments"
+  User_4:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      price:
+        type: "string"
+      owner:
+        type: "string"
+      teamID:
+        type: "string"
+  inline_response_200_5_comments:
+    properties:
+      description:
+        type: "string"
+        example: "This comment is only example it doesn't exist"
+  inline_response_200_5:
+    properties:
+      title:
+        type: "string"
+        example: "Workers"
+      price:
+        type: "number"
+        example: 2000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "Dawid"
+      teamID:
+        type: "string"
+        example: "34h6j3434h634"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_5_comments"
+  inline_response_200_6_comments:
+    properties:
+      name:
+        type: "string"
+        example: "example name"
+      authorID:
+        type: "string"
+        example: "example authorID"
+      description:
+        type: "string"
+        example: "description"
+  inline_response_200_6:
+    properties:
+      title:
+        type: "string"
+        example: "Workers"
+      price:
+        type: "number"
+        example: 2000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "Dawid"
+      teamID:
+        type: "string"
+        example: "34h6j3434h634"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_6_comments"
+  User_5:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      price:
+        type: "string"
+      owner:
+        type: "string"
+      teamID:
+        type: "string"
+  inline_response_200_7:
+    properties:
+      title:
+        type: "string"
+        example: "new title"
+      price:
+        type: "number"
+        example: 4000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "new owner"
+      teamID:
+        type: "string"
+        example: "new teamID"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_6_comments"
+  Comment_1:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      authorID:
+        type: "string"
+      description:
+        type: "string"
+  inline_response_200_8_comments:
+    properties:
+      name:
+        type: "string"
+        example: "given name"
+      authorID:
+        type: "string"
+        example: "given authorID"
+      description:
+        type: "string"
+        example: "given description"
+  inline_response_200_8:
+    properties:
+      title:
+        type: "string"
+        example: "Workers"
+      price:
+        type: "number"
+        example: 2000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "Dawid"
+      teamID:
+        type: "string"
+        example: "34h6j3434h634"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_8_comments"
+  inline_response_200_9_users:
+    properties:
+      spec:
+        type: "string"
+        example: "backend"
+      userID:
+        type: "string"
+        example: "t5465t546546t"
+  inline_response_200_9:
+    properties:
+      name:
+        type: "string"
+        example: "Workers"
+      users:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_9_users"
+  appteams_users:
+    properties:
+      spec:
+        type: "string"
+      userID:
+        type: "string"
+  Comment_2:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      users:
+        type: "array"
+        items:
+          $ref: "#/definitions/appteams_users"
+  inline_response_200_10:
+    properties:
+      name:
+        type: "string"
+        example: "Workers"
+      users:
+        type: "array"
+        example:
+          spec: "tech"
+          userID: "45ggjh73k876"
+        items:
+          type: "object"
+          properties: {}
+  User_6:
+    type: "object"
+    properties:
+      spec:
+        type: "string"
+      userID:
+        type: "string"
+  User_7:
+    type: "object"
+    properties:
+      spec:
+        type: "string"
+      userID:
+        type: "string"
+  inline_response_200_11:
+    properties:
+      name:
+        type: "string"
+        example: "new Name"
+      users:
+        type: "array"
+        example:
+          spec: "tech"
+          userID: "45ggjh73k876"
+        items:
+          type: "object"
+          properties: {}
