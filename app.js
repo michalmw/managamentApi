@@ -13,6 +13,7 @@ const jwt = require('express-jwt')
 const bcrypt = require('bcrypt');
 const util = require('util')
 const validator = require('express-validator');
+const path = require('path')
 const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -49,23 +50,33 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
   connect.use(middleware.swaggerRouter(options));
 
   // Serve the Swagger documents and Swagger UI
-  connect.use(middleware.swaggerUi());
-
-
-  let client = require('./routing/clients/route');
-  app.use('/', client);
-
-  let teams = require('./routing/teams/route')
-  app.use('/', teams);
-
-  let projects = require('./routing/projects/route')
-  app.use('/', projects);
+  connect.use(middleware.swaggerUi({
+    swaggerUi: '/app/docs',
+    apiDocs: '/app/JSON'
+  }))
 
   app.use('/', connect)
-  
-  app.listen(8080, () =>{
-      console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
-      console.log('Swagger-ui is available on http://localhost:%d/app/docs', serverPort);
-		// body...
-	});
+});
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
+
+
+let client = require('./routing/clients/route');
+app.use('/', client);
+
+let teams = require('./routing/teams/route')
+app.use('/', teams);
+
+let projects = require('./routing/projects/route')
+app.use('/', projects);
+
+
+app.listen(8080, () =>{
+    console.log('Your server is listening on port %d (http://localhost:%d)', serverPort, serverPort);
+    console.log('Swagger-ui is available on http://localhost:%d/app/docs', serverPort);
+  // body...
 });
