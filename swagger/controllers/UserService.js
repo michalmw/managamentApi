@@ -19,21 +19,34 @@ exports.appUsersGET = function(args, res, next) {
   }
 }
 
-exports.appUsersIdDELETE = function(args, res, next) {
+exports.appUsersPOST = function(args, res, next) {
   /**
-   * Delete user
+   * add User
    * 
    *
+   * user User_1 add User
    * no response value expected for this operation
    **/
   res.end();
 }
 
-exports.appUsersIdGET = function(args, res, next) {
+exports.appUsersUserIDDELETE = function(args, res, next) {
+  /**
+   * Delete user
+   * 
+   *
+   * userID String ID of pet that needs to be fetched
+   * no response value expected for this operation
+   **/
+  res.end();
+}
+
+exports.appUsersUserIDGET = function(args, res, next) {
   /**
    * Find one User by ID
    * 
    *
+   * userID String ID of pet that needs to be fetched
    * returns inline_response_200_1
    **/
   var examples = {};
@@ -50,12 +63,13 @@ exports.appUsersIdGET = function(args, res, next) {
   }
 }
 
-exports.appUsersIdPUT = function(args, res, next) {
+exports.appUsersUserIDPUT = function(args, res, next) {
   /**
    * Update login or password
    * 
    *
    * user User_2 add User
+   * userID String User ID to update
    * returns inline_response_200_2
    **/
   var examples = {};
@@ -70,16 +84,5 @@ exports.appUsersIdPUT = function(args, res, next) {
   } else {
     res.end();
   }
-}
-
-exports.appUsersPOST = function(args, res, next) {
-  /**
-   * add User
-   * 
-   *
-   * user User_1 add User
-   * no response value expected for this operation
-   **/
-  res.end();
 }
 

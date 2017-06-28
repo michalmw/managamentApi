@@ -51,28 +51,33 @@ paths:
         400:
           description: "loggin or password is incorect"
       x-swagger-router-controller: "User"
-  /users/id:
+  /users/{userID}:
     get:
       tags:
       - "User"
       summary: "Find one User by ID"
       description: ""
-      operationId: "appUsersIdGET"
-      parameters: []
+      operationId: "appUsersUserIDGET"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of pet that needs to be fetched"
+        required: true
+        type: "string"
       responses:
         200:
           description: "OK"
           schema:
             $ref: "#/definitions/inline_response_200_1"
         404:
-          description: "Cannot find with this ID"
+          description: "Cannot find user witch  this ID"
       x-swagger-router-controller: "User"
     put:
       tags:
       - "User"
       summary: "Update login or password"
       description: ""
-      operationId: "appUsersIdPUT"
+      operationId: "appUsersUserIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -80,6 +85,11 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/User_2"
+      - name: "userID"
+        in: "path"
+        description: "User ID to update"
+        required: true
+        type: "string"
       responses:
         200:
           description: "OK"
@@ -93,8 +103,13 @@ paths:
       - "User"
       summary: "Delete user"
       description: ""
-      operationId: "appUsersIdDELETE"
-      parameters: []
+      operationId: "appUsersUserIDDELETE"
+      parameters:
+      - name: "userID"
+        in: "path"
+        description: "ID of pet that needs to be fetched"
+        required: true
+        type: "string"
       responses:
         200:
           description: "Deleted"
@@ -158,13 +173,18 @@ paths:
         500:
           description: "server error"
       x-swagger-router-controller: "Project"
-  /projects/id:
+  /projects/{projectID}:
     get:
       tags:
       - "Project"
-      summary: "get one by ID project"
-      operationId: "appProjectsIdGET"
-      parameters: []
+      summary: "get one project by ID"
+      operationId: "appProjectsProjectIDGET"
+      parameters:
+      - name: "projectID"
+        in: "path"
+        description: "Project ID"
+        required: true
+        type: "string"
       responses:
         200:
           description: "ok"
@@ -177,7 +197,7 @@ paths:
       tags:
       - "Project"
       summary: "Update Project. Only replace properties"
-      operationId: "appProjectsIdPUT"
+      operationId: "appProjectsProjectIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -185,6 +205,11 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/User_5"
+      - name: "projectID"
+        in: "path"
+        description: "ID of project to be update"
+        required: true
+        type: "string"
       responses:
         200:
           description: "ok"
@@ -197,20 +222,25 @@ paths:
       tags:
       - "Project"
       summary: "Delete project"
-      operationId: "appProjectsIdDELETE"
-      parameters: []
+      operationId: "appProjectsProjectIDDELETE"
+      parameters:
+      - name: "projectID"
+        in: "path"
+        description: "ID of pet that needs to be fetched"
+        required: true
+        type: "string"
       responses:
         200:
           description: "ok"
         404:
           description: "Cannot find project with this ID"
       x-swagger-router-controller: "Project"
-  /project/comment/id:
+  /project/comment/{projectID}:
     put:
       tags:
       - "Project"
       summary: "Add Comment"
-      operationId: "appProjectCommentIdPUT"
+      operationId: "appProjectCommentProjectIDPUT"
       parameters:
       - in: "body"
         name: "Comment"
@@ -218,6 +248,11 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/Comment_1"
+      - name: "projectID"
+        in: "path"
+        description: "ID project to add comment"
+        required: true
+        type: "string"
       responses:
         200:
           description: "ok"
@@ -261,12 +296,12 @@ paths:
         400:
           description: "At least of userID is incorrect"
       x-swagger-router-controller: "Team"
-  /teams/id:
+  /teams/{teamID}:
     put:
       tags:
       - "Team"
       summary: "Add user to team"
-      operationId: "appTeamsIdPUT"
+      operationId: "appTeamsTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -274,6 +309,11 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/User_6"
+      - name: "teamID"
+        in: "path"
+        description: "ID of team to add user"
+        required: true
+        type: "string"
       responses:
         200:
           description: "Added user to team"
@@ -289,20 +329,25 @@ paths:
       - "Team"
       summary: "Delete team"
       description: ""
-      operationId: "appTeamsIdDELETE"
-      parameters: []
+      operationId: "appTeamsTeamIDDELETE"
+      parameters:
+      - name: "teamID"
+        in: "path"
+        description: "ID of to delete"
+        required: true
+        type: "string"
       responses:
         200:
           description: "Deleted"
         404:
           description: "Team with given ID doesn't exist"
       x-swagger-router-controller: "Team"
-  /teams/deleteUser/id:
+  /teams/deleteUser/{teamID}:
     put:
       tags:
       - "Team"
       summary: "Remove user from team"
-      operationId: "appTeamsDeleteUserIdPUT"
+      operationId: "appTeamsDeleteUserTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -310,6 +355,11 @@ paths:
         required: true
         schema:
           $ref: "#/definitions/User_7"
+      - name: "teamID"
+        in: "path"
+        description: "ID of team to delete User"
+        required: true
+        type: "string"
       responses:
         200:
           description: "deleted user from team"
@@ -318,17 +368,22 @@ paths:
         404:
           description: "Cannot find team with given ID"
       x-swagger-router-controller: "Team"
-  /teams/update/id:
+  /teams/update/{teamID}:
     put:
       tags:
       - "Team"
       summary: "Update, replace name"
       description: "j"
-      operationId: "appTeamsUpdateIdPUT"
+      operationId: "appTeamsUpdateTeamIDPUT"
       parameters:
       - name: "name"
         in: "query"
         description: "The name of team"
+        required: true
+        type: "string"
+      - name: "teamID"
+        in: "path"
+        description: "ID of team to update"
         required: true
         type: "string"
       responses:

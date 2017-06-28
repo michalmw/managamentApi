@@ -6,8 +6,8 @@ router
   .post('/app/projects', project.createProject)
   .put('/app/project/comment/:id', project.addComment)
   .get('/app/projects', project.getAllProject)
-  .delete('/app/project/:id', project.deleteProject)
-  .get('/app/project/:id', project.getProject)
-  .put('/app/project/:id', project.updateProject)
+  .delete('/app/projects/:id', project.deleteProject)
+  .get('/app/projects/:id', project.getProject)
+  .put('/app/projects/:id', project.updateProject)
 
 module.exports = router;

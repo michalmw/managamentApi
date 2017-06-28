@@ -8,6 +8,6 @@ router
   .put('/app/teams/:id', teams.addUserToTeam)
   .put('/app/teams/deleteUser/:id', teams.deleteUserFromTeam)
   .delete('/app/teams/:id', teams.deleteTeam)
-  .put('/app/team/update/:id', teams.update)
+  .put('/app/teams/update/:id', teams.update)
 
 module.exports = router;
