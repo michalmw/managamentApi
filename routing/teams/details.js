@@ -93,7 +93,7 @@ exports.addUserToTeam = (req, res)=>{
 
   const errors = req.validationErrors();
     if (errors)
-      return res.status(500).json({"error": errors})
+      return res.status(400).json({"error": errors})
 
     Teams.findById(req.body.userID, (err, result)=>{
       if(err){
