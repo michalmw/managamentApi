@@ -1,6 +1,6 @@
 'use strict';
 
-exports.appTeamsDeleteUserTeamIDPUT = function(args, res, next) {
+exports.teamsDeleteUserTeamIDPUT = function(args, res, next) {
   /**
    * Remove user from team
    *
@@ -11,7 +11,7 @@ exports.appTeamsDeleteUserTeamIDPUT = function(args, res, next) {
   res.end();
 }
 
-exports.appTeamsGET = function(args, res, next) {
+exports.teamsGET = function(args, res, next) {
   /**
    * get all teams
    *
@@ -33,7 +33,7 @@ exports.appTeamsGET = function(args, res, next) {
   }
 }
 
-exports.appTeamsPOST = function(args, res, next) {
+exports.teamsPOST = function(args, res, next) {
   /**
    * Add Team
    *
@@ -56,7 +56,7 @@ exports.appTeamsPOST = function(args, res, next) {
   }
 }
 
-exports.appTeamsTeamIDDELETE = function(args, res, next) {
+exports.teamsTeamIDDELETE = function(args, res, next) {
   /**
    * Delete team
    * 
@@ -67,7 +67,7 @@ exports.appTeamsTeamIDDELETE = function(args, res, next) {
   res.end();
 }
 
-exports.appTeamsTeamIDPUT = function(args, res, next) {
+exports.teamsTeamIDPUT = function(args, res, next) {
   /**
    * Add user to team
    *
@@ -91,12 +91,12 @@ exports.appTeamsTeamIDPUT = function(args, res, next) {
   }
 }
 
-exports.appTeamsUpdateTeamIDPUT = function(args, res, next) {
+exports.teamsUpdateTeamIDPUT = function(args, res, next) {
   /**
    * Update, replace name
    * j
    *
-   * name String The name of team
+   * team Team_1 update name of Team
    * teamID String ID of team to update
    * returns inline_response_200_11
    **/

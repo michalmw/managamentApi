@@ -6,7 +6,7 @@ const clients = require('./details.js');
 
 router
   .get('/app/users', clients.findAll)
-  .post('/app/users', clients.addClient)
+  .post('/app/users', clients.addUser)
   .get('/app/users/:id', clients.findById)
   .delete('/app/users/:id', clients.deleteById)
   .post('/app/login', clients.login)

@@ -62,12 +62,14 @@ exports.deleteTeam = (req, res)=>{
 }
 
 exports.update = (req, res)=>{
-    Teams.findByIdAndUpdate(req.params.id, { $set: req.body}, { new: true }, function (err, date) {
-      if (err) {
-        return res.status(404).json('ID is wrong!')
+  console.log(req.body)
+
+  Teams.findByIdAndUpdate(req.params.id,{$set: req.body}, {new: true}, (err, date)=>{
+      if(err){
+        return res.status(404).json('Bad iD!');
       }
-      res.status(200).json(date)
-    });
+        return res.status(200).json(date);
+  });
 }
 
 exports.deleteUserFromTeam = (req, res)=>{
@@ -90,7 +92,7 @@ exports.deleteUserFromTeam = (req, res)=>{
 exports.addUserToTeam = (req, res)=>{
   req.checkBody('spec', "You don't have chosen properly this!").isLength({min:3,max:30});
   req.checkBody('userID', "You don't have user ID!").isLength({min:3,max:30});
-
+  let err = false
   const errors = req.validationErrors();
     if (errors)
       return res.status(400).json({"error": errors})
@@ -98,10 +100,14 @@ exports.addUserToTeam = (req, res)=>{
     Teams.findById(req.body.userID, (err, result)=>{
       if(err){
         return res.status(404).json('Cannot add user which ID doesn\'t exist in database!')
+        err = true
       }
     })
+    if(err){
+      return
+    }
     Teams.findByIdAndUpdate(req.params.id,{$push: {"users": req.body}}, { new: true }, function (err, date) {
-    if (err) return handleError(err);
+    if (err) return res.status(404).json("Team ID is wrong")
     return res.status(200).json(date)
   });
 }

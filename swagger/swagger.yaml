@@ -20,7 +20,7 @@ paths:
       tags:
       - "User"
       summary: "get All users"
-      operationId: "appUsersGET"
+      operationId: "usersGET"
       parameters: []
       responses:
         200:
@@ -35,7 +35,7 @@ paths:
       - "User"
       summary: "add User"
       description: ""
-      operationId: "appUsersPOST"
+      operationId: "usersPOST"
       produces:
       - "application/json"
       parameters:
@@ -57,7 +57,7 @@ paths:
       - "User"
       summary: "Find one User by ID"
       description: ""
-      operationId: "appUsersUserIDGET"
+      operationId: "usersUserIDGET"
       parameters:
       - name: "userID"
         in: "path"
@@ -77,7 +77,7 @@ paths:
       - "User"
       summary: "Update login or password"
       description: ""
-      operationId: "appUsersUserIDPUT"
+      operationId: "usersUserIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -103,7 +103,7 @@ paths:
       - "User"
       summary: "Delete user"
       description: ""
-      operationId: "appUsersUserIDDELETE"
+      operationId: "usersUserIDDELETE"
       parameters:
       - name: "userID"
         in: "path"
@@ -122,7 +122,7 @@ paths:
       - "Login"
       summary: "Login to Api"
       description: ""
-      operationId: "appLoginPOST"
+      operationId: "loginPOST"
       parameters:
       - in: "body"
         name: "User"
@@ -143,7 +143,7 @@ paths:
       tags:
       - "Project"
       summary: "get All Project"
-      operationId: "appProjectsGET"
+      operationId: "projectsGET"
       parameters: []
       responses:
         200:
@@ -157,7 +157,7 @@ paths:
       tags:
       - "Project"
       summary: "add Project"
-      operationId: "appProjectsPOST"
+      operationId: "projectsPOST"
       parameters:
       - in: "body"
         name: "User"
@@ -178,7 +178,7 @@ paths:
       tags:
       - "Project"
       summary: "get one project by ID"
-      operationId: "appProjectsProjectIDGET"
+      operationId: "projectsProjectIDGET"
       parameters:
       - name: "projectID"
         in: "path"
@@ -197,7 +197,7 @@ paths:
       tags:
       - "Project"
       summary: "Update Project. Only replace properties"
-      operationId: "appProjectsProjectIDPUT"
+      operationId: "projectsProjectIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -222,7 +222,7 @@ paths:
       tags:
       - "Project"
       summary: "Delete project"
-      operationId: "appProjectsProjectIDDELETE"
+      operationId: "projectsProjectIDDELETE"
       parameters:
       - name: "projectID"
         in: "path"
@@ -240,7 +240,7 @@ paths:
       tags:
       - "Project"
       summary: "Add Comment"
-      operationId: "appProjectCommentProjectIDPUT"
+      operationId: "projectCommentProjectIDPUT"
       parameters:
       - in: "body"
         name: "Comment"
@@ -266,7 +266,7 @@ paths:
       tags:
       - "Team"
       summary: "get all teams"
-      operationId: "appTeamsGET"
+      operationId: "teamsGET"
       parameters: []
       responses:
         200:
@@ -280,7 +280,7 @@ paths:
       tags:
       - "Team"
       summary: "Add Team"
-      operationId: "appTeamsPOST"
+      operationId: "teamsPOST"
       parameters:
       - in: "body"
         name: "Comment"
@@ -301,7 +301,7 @@ paths:
       tags:
       - "Team"
       summary: "Add user to team"
-      operationId: "appTeamsTeamIDPUT"
+      operationId: "teamsTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -329,7 +329,7 @@ paths:
       - "Team"
       summary: "Delete team"
       description: ""
-      operationId: "appTeamsTeamIDDELETE"
+      operationId: "teamsTeamIDDELETE"
       parameters:
       - name: "teamID"
         in: "path"
@@ -347,7 +347,7 @@ paths:
       tags:
       - "Team"
       summary: "Remove user from team"
-      operationId: "appTeamsDeleteUserTeamIDPUT"
+      operationId: "teamsDeleteUserTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -374,13 +374,14 @@ paths:
       - "Team"
       summary: "Update, replace name"
       description: "j"
-      operationId: "appTeamsUpdateTeamIDPUT"
+      operationId: "teamsUpdateTeamIDPUT"
       parameters:
-      - name: "name"
-        in: "query"
-        description: "The name of team"
+      - in: "body"
+        name: "Team"
+        description: "update name of Team"
         required: true
-        type: "string"
+        schema:
+          $ref: "#/definitions/Team_1"
       - name: "teamID"
         in: "path"
         description: "ID of team to update"
@@ -426,7 +427,7 @@ definitions:
       users:
         type: "array"
         items:
-          $ref: "#/definitions/appteams_users"
+          $ref: "#/definitions/teams_users"
   Project:
     type: "object"
     properties:
@@ -437,6 +438,11 @@ definitions:
       owner:
         type: "string"
       teamID:
+        type: "string"
+  name:
+    type: "object"
+    properties:
+      name:
         type: "string"
   inline_response_200:
     properties:
@@ -691,7 +697,7 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/inline_response_200_9_users"
-  appteams_users:
+  teams_users:
     properties:
       spec:
         type: "string"
@@ -705,7 +711,7 @@ definitions:
       users:
         type: "array"
         items:
-          $ref: "#/definitions/appteams_users"
+          $ref: "#/definitions/teams_users"
   inline_response_200_10:
     properties:
       name:
@@ -732,6 +738,11 @@ definitions:
       spec:
         type: "string"
       userID:
+        type: "string"
+  Team_1:
+    type: "object"
+    properties:
+      name:
         type: "string"
   inline_response_200_11:
     properties:

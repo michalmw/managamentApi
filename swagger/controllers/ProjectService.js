@@ -1,6 +1,6 @@
 'use strict';
 
-exports.appProjectCommentProjectIDPUT = function(args, res, next) {
+exports.projectCommentProjectIDPUT = function(args, res, next) {
   /**
    * Add Comment
    *
@@ -29,7 +29,7 @@ exports.appProjectCommentProjectIDPUT = function(args, res, next) {
   }
 }
 
-exports.appProjectsGET = function(args, res, next) {
+exports.projectsGET = function(args, res, next) {
   /**
    * get All Project
    *
@@ -56,7 +56,7 @@ exports.appProjectsGET = function(args, res, next) {
   }
 }
 
-exports.appProjectsPOST = function(args, res, next) {
+exports.projectsPOST = function(args, res, next) {
   /**
    * add Project
    *
@@ -82,7 +82,7 @@ exports.appProjectsPOST = function(args, res, next) {
   }
 }
 
-exports.appProjectsProjectIDDELETE = function(args, res, next) {
+exports.projectsProjectIDDELETE = function(args, res, next) {
   /**
    * Delete project
    *
@@ -92,7 +92,7 @@ exports.appProjectsProjectIDDELETE = function(args, res, next) {
   res.end();
 }
 
-exports.appProjectsProjectIDGET = function(args, res, next) {
+exports.projectsProjectIDGET = function(args, res, next) {
   /**
    * get one project by ID
    *
@@ -120,7 +120,7 @@ exports.appProjectsProjectIDGET = function(args, res, next) {
   }
 }
 
-exports.appProjectsProjectIDPUT = function(args, res, next) {
+exports.projectsProjectIDPUT = function(args, res, next) {
   /**
    * Update Project. Only replace properties
    *

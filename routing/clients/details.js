@@ -22,7 +22,7 @@ exports.findAll = (req, res)=>{
    })
 };
 
-exports.addClient = (req, res)=>{
+exports.addUser = (req, res)=>{
   let login = validator.isLength(req.body.login, {min:5, max: 10})
   let password = validator.isLength(req.body.password,{min :6, max : 20});
 
@@ -104,6 +104,6 @@ exports.update = (req, res)=>{
     if (err){
       return res.status(404).json('Cannot find user with this Id');
     }
-    return res.status(200).json("Succesfully saved!")
+    return res.status(200).json(doc)
   });
 }
