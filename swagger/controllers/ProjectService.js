@@ -1,6 +1,35 @@
 'use strict';
 
-exports.appProjectCommentProjectIDPUT = function(args, res, next) {
+exports.projectCommentProjectIDDELETE = function(args, res, next) {
+  /**
+   * delete Comment
+   *
+   * comment Comment_2 delete Comment
+   * projectID String ID project to delete comment
+   * returns inline_response_200_9
+   **/
+  var examples = {};
+  examples['application/json'] = {
+  "owner" : "Dawid",
+  "comments" : [ {
+    "name" : "delete  name",
+    "description" : "delete  description",
+    "authorID" : "delete  authorID"
+  } ],
+  "price" : 2000.0,
+  "createdData" : "2017-06-25- 1:18",
+  "teamID" : "34h6j3434h634",
+  "title" : "Workers"
+};
+  if (Object.keys(examples).length > 0) {
+    res.setHeader('Content-Type', 'application/json');
+    res.end(JSON.stringify(examples[Object.keys(examples)[0]] || {}, null, 2));
+  } else {
+    res.end();
+  }
+}
+
+exports.projectCommentProjectIDPUT = function(args, res, next) {
   /**
    * Add Comment
    *
@@ -29,7 +58,7 @@ exports.appProjectCommentProjectIDPUT = function(args, res, next) {
   }
 }
 
-exports.appProjectsGET = function(args, res, next) {
+exports.projectsGET = function(args, res, next) {
   /**
    * get All Project
    *
@@ -56,7 +85,7 @@ exports.appProjectsGET = function(args, res, next) {
   }
 }
 
-exports.appProjectsPOST = function(args, res, next) {
+exports.projectsPOST = function(args, res, next) {
   /**
    * add Project
    *
@@ -82,7 +111,7 @@ exports.appProjectsPOST = function(args, res, next) {
   }
 }
 
-exports.appProjectsProjectIDDELETE = function(args, res, next) {
+exports.projectsProjectIDDELETE = function(args, res, next) {
   /**
    * Delete project
    *
@@ -92,7 +121,7 @@ exports.appProjectsProjectIDDELETE = function(args, res, next) {
   res.end();
 }
 
-exports.appProjectsProjectIDGET = function(args, res, next) {
+exports.projectsProjectIDGET = function(args, res, next) {
   /**
    * get one project by ID
    *
@@ -120,7 +149,7 @@ exports.appProjectsProjectIDGET = function(args, res, next) {
   }
 }
 
-exports.appProjectsProjectIDPUT = function(args, res, next) {
+exports.projectsProjectIDPUT = function(args, res, next) {
   /**
    * Update Project. Only replace properties
    *

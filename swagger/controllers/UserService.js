@@ -1,6 +1,6 @@
 'use strict';
 
-exports.appUsersGET = function(args, res, next) {
+exports.usersGET = function(args, res, next) {
   /**
    * get All users
    *
@@ -19,7 +19,7 @@ exports.appUsersGET = function(args, res, next) {
   }
 }
 
-exports.appUsersPOST = function(args, res, next) {
+exports.usersPOST = function(args, res, next) {
   /**
    * add User
    * 
@@ -30,7 +30,7 @@ exports.appUsersPOST = function(args, res, next) {
   res.end();
 }
 
-exports.appUsersUserIDDELETE = function(args, res, next) {
+exports.usersUserIDDELETE = function(args, res, next) {
   /**
    * Delete user
    * 
@@ -41,7 +41,7 @@ exports.appUsersUserIDDELETE = function(args, res, next) {
   res.end();
 }
 
-exports.appUsersUserIDGET = function(args, res, next) {
+exports.usersUserIDGET = function(args, res, next) {
   /**
    * Find one User by ID
    * 
@@ -63,7 +63,7 @@ exports.appUsersUserIDGET = function(args, res, next) {
   }
 }
 
-exports.appUsersUserIDPUT = function(args, res, next) {
+exports.usersUserIDPUT = function(args, res, next) {
   /**
    * Update login or password
    * 

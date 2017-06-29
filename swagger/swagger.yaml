@@ -20,7 +20,7 @@ paths:
       tags:
       - "User"
       summary: "get All users"
-      operationId: "appUsersGET"
+      operationId: "usersGET"
       parameters: []
       responses:
         200:
@@ -35,7 +35,7 @@ paths:
       - "User"
       summary: "add User"
       description: ""
-      operationId: "appUsersPOST"
+      operationId: "usersPOST"
       produces:
       - "application/json"
       parameters:
@@ -57,7 +57,7 @@ paths:
       - "User"
       summary: "Find one User by ID"
       description: ""
-      operationId: "appUsersUserIDGET"
+      operationId: "usersUserIDGET"
       parameters:
       - name: "userID"
         in: "path"
@@ -77,7 +77,7 @@ paths:
       - "User"
       summary: "Update login or password"
       description: ""
-      operationId: "appUsersUserIDPUT"
+      operationId: "usersUserIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -103,7 +103,7 @@ paths:
       - "User"
       summary: "Delete user"
       description: ""
-      operationId: "appUsersUserIDDELETE"
+      operationId: "usersUserIDDELETE"
       parameters:
       - name: "userID"
         in: "path"
@@ -122,7 +122,7 @@ paths:
       - "Login"
       summary: "Login to Api"
       description: ""
-      operationId: "appLoginPOST"
+      operationId: "loginPOST"
       parameters:
       - in: "body"
         name: "User"
@@ -143,7 +143,7 @@ paths:
       tags:
       - "Project"
       summary: "get All Project"
-      operationId: "appProjectsGET"
+      operationId: "projectsGET"
       parameters: []
       responses:
         200:
@@ -157,7 +157,7 @@ paths:
       tags:
       - "Project"
       summary: "add Project"
-      operationId: "appProjectsPOST"
+      operationId: "projectsPOST"
       parameters:
       - in: "body"
         name: "User"
@@ -178,7 +178,7 @@ paths:
       tags:
       - "Project"
       summary: "get one project by ID"
-      operationId: "appProjectsProjectIDGET"
+      operationId: "projectsProjectIDGET"
       parameters:
       - name: "projectID"
         in: "path"
@@ -197,7 +197,7 @@ paths:
       tags:
       - "Project"
       summary: "Update Project. Only replace properties"
-      operationId: "appProjectsProjectIDPUT"
+      operationId: "projectsProjectIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -222,7 +222,7 @@ paths:
       tags:
       - "Project"
       summary: "Delete project"
-      operationId: "appProjectsProjectIDDELETE"
+      operationId: "projectsProjectIDDELETE"
       parameters:
       - name: "projectID"
         in: "path"
@@ -240,7 +240,7 @@ paths:
       tags:
       - "Project"
       summary: "Add Comment"
-      operationId: "appProjectCommentProjectIDPUT"
+      operationId: "projectCommentProjectIDPUT"
       parameters:
       - in: "body"
         name: "Comment"
@@ -261,18 +261,43 @@ paths:
         404:
           description: "Cannot find project witch this ID"
       x-swagger-router-controller: "Project"
+    delete:
+      tags:
+      - "Project"
+      summary: "delete Comment"
+      operationId: "projectCommentProjectIDDELETE"
+      parameters:
+      - in: "body"
+        name: "Comment"
+        description: "delete Comment"
+        required: true
+        schema:
+          $ref: "#/definitions/Comment_2"
+      - name: "projectID"
+        in: "path"
+        description: "ID project to delete comment"
+        required: true
+        type: "string"
+      responses:
+        200:
+          description: "Deleted"
+          schema:
+            $ref: "#/definitions/inline_response_200_9"
+        404:
+          description: "Cannot find project witch this ID"
+      x-swagger-router-controller: "Project"
   /teams:
     get:
       tags:
       - "Team"
       summary: "get all teams"
-      operationId: "appTeamsGET"
+      operationId: "teamsGET"
       parameters: []
       responses:
         200:
           description: "ok"
           schema:
-            $ref: "#/definitions/inline_response_200_9"
+            $ref: "#/definitions/inline_response_200_10"
         500:
           description: "server error"
       x-swagger-router-controller: "Team"
@@ -280,19 +305,19 @@ paths:
       tags:
       - "Team"
       summary: "Add Team"
-      operationId: "appTeamsPOST"
+      operationId: "teamsPOST"
       parameters:
       - in: "body"
         name: "Comment"
         description: "add Comment"
         required: true
         schema:
-          $ref: "#/definitions/Comment_2"
+          $ref: "#/definitions/Comment_3"
       responses:
         200:
           description: "ok"
           schema:
-            $ref: "#/definitions/inline_response_200_10"
+            $ref: "#/definitions/inline_response_200_11"
         400:
           description: "At least of userID is incorrect"
       x-swagger-router-controller: "Team"
@@ -301,7 +326,7 @@ paths:
       tags:
       - "Team"
       summary: "Add user to team"
-      operationId: "appTeamsTeamIDPUT"
+      operationId: "teamsTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -318,7 +343,7 @@ paths:
         200:
           description: "Added user to team"
           schema:
-            $ref: "#/definitions/inline_response_200_10"
+            $ref: "#/definitions/inline_response_200_11"
         400:
           description: "userID is incorect"
         404:
@@ -329,7 +354,7 @@ paths:
       - "Team"
       summary: "Delete team"
       description: ""
-      operationId: "appTeamsTeamIDDELETE"
+      operationId: "teamsTeamIDDELETE"
       parameters:
       - name: "teamID"
         in: "path"
@@ -347,7 +372,7 @@ paths:
       tags:
       - "Team"
       summary: "Remove user from team"
-      operationId: "appTeamsDeleteUserTeamIDPUT"
+      operationId: "teamsDeleteUserTeamIDPUT"
       parameters:
       - in: "body"
         name: "User"
@@ -374,13 +399,14 @@ paths:
       - "Team"
       summary: "Update, replace name"
       description: "j"
-      operationId: "appTeamsUpdateTeamIDPUT"
+      operationId: "teamsUpdateTeamIDPUT"
       parameters:
-      - name: "name"
-        in: "query"
-        description: "The name of team"
+      - in: "body"
+        name: "Team"
+        description: "update name of Team"
         required: true
-        type: "string"
+        schema:
+          $ref: "#/definitions/Team_1"
       - name: "teamID"
         in: "path"
         description: "ID of team to update"
@@ -390,7 +416,7 @@ paths:
         200:
           description: "ok"
           schema:
-            $ref: "#/definitions/inline_response_200_11"
+            $ref: "#/definitions/inline_response_200_12"
         404:
           description: "Team with given ID doesn't exist"
       x-swagger-router-controller: "Team"
@@ -426,7 +452,7 @@ definitions:
       users:
         type: "array"
         items:
-          $ref: "#/definitions/appteams_users"
+          $ref: "#/definitions/teams_users"
   Project:
     type: "object"
     properties:
@@ -437,6 +463,11 @@ definitions:
       owner:
         type: "string"
       teamID:
+        type: "string"
+  name:
+    type: "object"
+    properties:
+      name:
         type: "string"
   inline_response_200:
     properties:
@@ -674,7 +705,48 @@ definitions:
         type: "array"
         items:
           $ref: "#/definitions/inline_response_200_8_comments"
-  inline_response_200_9_users:
+  Comment_2:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      authorID:
+        type: "string"
+      description:
+        type: "string"
+  inline_response_200_9_comments:
+    properties:
+      name:
+        type: "string"
+        example: "delete  name"
+      authorID:
+        type: "string"
+        example: "delete  authorID"
+      description:
+        type: "string"
+        example: "delete  description"
+  inline_response_200_9:
+    properties:
+      title:
+        type: "string"
+        example: "Workers"
+      price:
+        type: "number"
+        example: 2000
+      createdData:
+        type: "string"
+        example: "2017-06-25- 1:18"
+      owner:
+        type: "string"
+        example: "Dawid"
+      teamID:
+        type: "string"
+        example: "34h6j3434h634"
+      comments:
+        type: "array"
+        items:
+          $ref: "#/definitions/inline_response_200_9_comments"
+  inline_response_200_10_users:
     properties:
       spec:
         type: "string"
@@ -682,7 +754,7 @@ definitions:
       userID:
         type: "string"
         example: "t5465t546546t"
-  inline_response_200_9:
+  inline_response_200_10:
     properties:
       name:
         type: "string"
@@ -690,14 +762,14 @@ definitions:
       users:
         type: "array"
         items:
-          $ref: "#/definitions/inline_response_200_9_users"
-  appteams_users:
+          $ref: "#/definitions/inline_response_200_10_users"
+  teams_users:
     properties:
       spec:
         type: "string"
       userID:
         type: "string"
-  Comment_2:
+  Comment_3:
     type: "object"
     properties:
       name:
@@ -705,8 +777,8 @@ definitions:
       users:
         type: "array"
         items:
-          $ref: "#/definitions/appteams_users"
-  inline_response_200_10:
+          $ref: "#/definitions/teams_users"
+  inline_response_200_11:
     properties:
       name:
         type: "string"
@@ -733,7 +805,12 @@ definitions:
         type: "string"
       userID:
         type: "string"
-  inline_response_200_11:
+  Team_1:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+  inline_response_200_12:
     properties:
       name:
         type: "string"
