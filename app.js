@@ -57,16 +57,18 @@ swaggerTools.initializeMiddleware(swaggerDoc, function (middleware) {
 
   app.use('/', connect)
 });
-app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-  next();
-});
+var allowCrossDomain = function(req, res, next) {
+    res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8080');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type');
+    next();
+}
+
+app.use(allowCrossDomain);
 
 
-
-let client = require('./routing/clients/route');
-app.use('/', client);
+let users = require('./routing/users/route');
+app.use('/', users);
 
 let teams = require('./routing/teams/route')
 app.use('/', teams);

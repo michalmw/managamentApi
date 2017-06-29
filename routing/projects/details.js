@@ -12,13 +12,9 @@ const Projects = require('../../models/project');
 
 exports.createProject = (req, res)=>{
 
-  let newProject = new Projects();
+  let newProject = new Projects(req.body);
 
-  newProject.title = req.body.title;
-  newProject.price = req.body.price;
   newProject.createdData =  new Date();//Server adding this not client
-  newProject.owner = req.body.owner;
-  newProject.teamID = req.body.teamID;
   newProject.comments = [];
 
   newProject.save((err, result)=>{
@@ -41,8 +37,19 @@ exports.addComment = (req, res)=>{
    if (err) {
      return res.status(404).json('Cannot find project with this ID!')
    }
-   res.status(200).json(date)
+   return res.status(200).json(date)
   });
+}
+
+
+exports.deleteComment = (req, res) =>{
+
+  Projects.findByIdAndUpdate(req.params.id,{$pull: {"comments": req.body}}, (err, date)=>{
+    if (err){
+      return res.status(404).json('Cannot find project witch this ID!')
+    }
+    return res.status(200).json(date)
+  })
 }
 
 exports.getAllProject = (req, res)=>{

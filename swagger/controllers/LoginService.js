@@ -1,6 +1,6 @@
 'use strict';
 
-exports.appLoginPOST = function(args, res, next) {
+exports.loginPOST = function(args, res, next) {
   /**
    * Login to Api
    * 
