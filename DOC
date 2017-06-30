@@ -215,19 +215,17 @@ paths:
           '500':
             description: "server error"  
   
-  
-  
     post:
        tags:
         - Project
-       summary: "add Project"
+       summary: "add PROJECT"
        parameters:
         - name: "User"
           in: "body"
           description: "add Project"
           required: true
           schema:
-            $ref: '#/definitions/Project'
+            $ref: '#/definitions/Category'
        responses:
           '200':
             description: "ok"
@@ -256,9 +254,8 @@ paths:
                       description:
                         type: string
                         example: "This comment is only example it doesn't exist"
-                  
-          '500':
-            description: "server error"  
+  
+    
           
   /projects/{projectID}:
     get:
@@ -380,45 +377,7 @@ paths:
           '404':
             description: "Cannot find project witch this ID"
     
-    post:
-       tags:
-        - Project
-       summary: "add PROJECT"
-       parameters:
-        - name: "User"
-          in: "body"
-          description: "add Project"
-          required: true
-          schema:
-            $ref: '#/definitions/Category'
-       responses:
-          '200':
-            description: "ok"
-            schema:
-              properties:
-                title:
-                  type: string
-                  example : "Workers"
-                price:
-                  type: number
-                  example: "2000"
-                createdData:
-                  type: string
-                  example: "2017-06-25- 1:18"
-                owner:
-                  type: string
-                  example: "Dawid"
-                teamID:
-                  type: string
-                  example: "34h6j3434h634"
-                comments:
-                  type: array
-                  items:
-                   type: object
-                   properties:
-                      description:
-                        type: string
-                        example: "This comment is only example it doesn't exist"
+    
           
   /project/comment/{projectID}:
     put:
