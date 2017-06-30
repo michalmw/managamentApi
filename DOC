@@ -378,7 +378,47 @@ paths:
                        type: string
                        example: "description"
           '404':
-            description: "Cannot find project witch this ID"  
+            description: "Cannot find project witch this ID"
+    
+    post:
+       tags:
+        - Project
+       summary: "add PROJECT"
+       parameters:
+        - name: "User"
+          in: "body"
+          description: "add Project"
+          required: true
+          schema:
+            $ref: '#/definitions/Category'
+       responses:
+          '200':
+            description: "ok"
+            schema:
+              properties:
+                title:
+                  type: string
+                  example : "Workers"
+                price:
+                  type: number
+                  example: "2000"
+                createdData:
+                  type: string
+                  example: "2017-06-25- 1:18"
+                owner:
+                  type: string
+                  example: "Dawid"
+                teamID:
+                  type: string
+                  example: "34h6j3434h634"
+                comments:
+                  type: array
+                  items:
+                   type: object
+                   properties:
+                      description:
+                        type: string
+                        example: "This comment is only example it doesn't exist"
           
   /project/comment/{projectID}:
     put:
@@ -679,11 +719,19 @@ definitions:
   User:
     type: object
     properties:
-      login:
+      name:
+        type: string
+      email:
         type: string
       password:
         type: string
-        
+      City:
+        type: string
+      Country:
+        type: string
+      School:
+        type: string
+      
   UserToTeam:
     type: object
     properties:
@@ -730,6 +778,90 @@ definitions:
       teamID:
         type: string
         
+  Category:
+    type: object
+    properties:
+      problem:
+       type: object
+       properties:
+              note:
+                  $ref: '#/definitions/note'
+      solutionProblem:
+        type: object
+        properties:
+              note:
+                  $ref: '#/definitions/note'
+      customerSegments:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      relationShip:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      chanalsSolutionCustomers:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      reveneuStreamsForYourIdea:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      valueProposition:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      costStructure:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+
+      keyActivities:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      keyResources:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+      keyPartners:
+         type: object
+         properties:
+              note:
+                  $ref: '#/definitions/note'
+      industryYourIdea:
+          type: object
+          properties:
+              note:
+                  $ref: '#/definitions/note'
+              
+  note:
+    type: object
+    properties:
+        noteid:
+          type: string
+        description:
+          type: string
+        comment:
+          type: object
+          
+      
+        
+            
+              
+            
+            
+            
+                
+                
   name:
     type: object
     properties:
