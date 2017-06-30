@@ -225,7 +225,7 @@ paths:
           description: "add Project"
           required: true
           schema:
-            $ref: '#/definitions/Category'
+            $ref: '#/definitions/Project'
        responses:
           '200':
             description: "ok"
@@ -486,6 +486,62 @@ paths:
           '404':
             description: "Cannot find project witch this ID"
             
+            
+  /project/{projectID}/note:
+   put:
+       tags:
+        - Project
+       summary: "add Comment To note"
+       parameters:
+        - name: "Comment"
+          in: "body"
+          description: "add   Note businessModel"
+          required: true
+          schema:
+            $ref: '#/definitions/note'
+        - in: path
+          name: projectID
+          description: "ID project to delete comment"
+          required: true
+          type: string
+       responses:
+          '200':
+            description: "Deleted"
+            schema:
+              properties:
+                title:
+                  type: string
+                  example : "Workers"
+                price:
+                  type: number
+                  example: "2000"
+                createdData:
+                  type: string
+                  example: "2017-06-25- 1:18"
+                owner:
+                  type: string
+                  example: "Dawid"
+                teamID:
+                  type: string
+                  example: "34h6j3434h634"
+                comments:
+                  type: array
+                  items:
+                   type: object
+                   properties:
+                      name:
+                       type: string
+                       example: "delete  name"
+                      authorID:
+                       type: string
+                       example: "delete  authorID"
+                      description:
+                       type: string
+                       example: "delete  description"
+          '404':
+            description: "Cannot find project witch this ID"
+  
+            
   
           
   /teams:
@@ -736,71 +792,15 @@ definitions:
         type: string
       teamID:
         type: string
-        
-  Category:
-    type: object
-    properties:
-      problem:
-       type: object
-       properties:
-              note:
-                  $ref: '#/definitions/note'
-      solutionProblem:
+      businessModel:
         type: object
         properties:
-              note:
-                  $ref: '#/definitions/note'
-      customerSegments:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      relationShip:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      chanalsSolutionCustomers:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      reveneuStreamsForYourIdea:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      valueProposition:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      costStructure:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
+          category:
+            $ref: '#/definitions/Category'
 
-      keyActivities:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      keyResources:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
-      keyPartners:
-         type: object
-         properties:
-              note:
-                  $ref: '#/definitions/note'
-      industryYourIdea:
-          type: object
-          properties:
-              note:
-                  $ref: '#/definitions/note'
+        
+        
+
               
   note:
     type: object
@@ -812,10 +812,71 @@ definitions:
         comment:
           type: object
           
-      
-        
-            
-              
+  Category:
+    type: object
+    properties:
+      problem:
+         type: object
+         properties:
+                note:
+                    $ref: '#/definitions/note'
+      solutionProblem:
+          type: object
+          properties:
+                note:
+                    $ref: '#/definitions/note'
+      customerSegments:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      relationShip:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      chanalsSolutionCustomers:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      reveneuStreamsForYourIdea:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      valueProposition:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      costStructure:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+  
+      keyActivities:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      keyResources:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'
+      keyPartners:
+           type: object
+           properties:
+                note:
+                    $ref: '#/definitions/note'
+      industryYourIdea:
+            type: object
+            properties:
+                note:
+                    $ref: '#/definitions/note'        
+                
             
             
             
